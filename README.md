@@ -1,9 +1,10 @@
 <p>
   <a href="docs/QUICKSTART.md"><img alt="No-terminal quickstart" src="https://img.shields.io/badge/Quickstart-no%20terminal-2ea44f?style=for-the-badge"></a>
   <a href="docs/QUICKSTART.md#1-claude-desktop"><img alt="Install in Claude Desktop" src="https://img.shields.io/badge/Install%20in-Claude%20Desktop-D97757?style=for-the-badge"></a>
+  <a href="https://cursor.com/install-mcp?name=content-engine&amp;config=eyJ0eXBlIjoic3RkaW8iLCJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImNvbnRlbnQtZW5naW5lLW1jcCJdLCJlbnYiOnsiQ09OVEVOVF9FTkdJTkVfUk9PVCI6IiR7dXNlckhvbWV9L2NvbnRlbnQtZW5naW5lIn19"><img alt="Add to Cursor" src="https://cursor.com/deeplink/mcp-install-dark.svg" height="28"></a>
 </p>
 
-**Not a developer?** Follow the [click-by-click quickstart](docs/QUICKSTART.md) for Claude Desktop. Notes for ChatGPT and claude.ai are included. No terminal needed.
+**Not a developer?** Follow the [click-by-click quickstart](docs/QUICKSTART.md) for Claude Desktop, ChatGPT, Cursor, Grok Bot and other agents. No terminal needed.
 
 # content-engine-mcp
 
@@ -148,7 +149,7 @@ CI: GitHub Actions on Node 20 and 22.
 
 ## Docs
 
-- [QUICKSTART.md](docs/QUICKSTART.md) — no-terminal install for Claude Desktop
+- [QUICKSTART.md](docs/QUICKSTART.md) — no-terminal install for Claude Desktop, Cursor, Grok Bot, and other agents
 - [SPEC.md](docs/SPEC.md) — Phase 1 spec, assumptions, Phase 2
 - [RESEARCH.md](docs/RESEARCH.md) — 24-row prior-art table, wedge, design check (no Postiz/AGPL copies; `content-repurposer-mcp` is a dead listing)
 - [SCHEDULING.md](docs/SCHEDULING.md) — Claude / Codex / cron / Actions
