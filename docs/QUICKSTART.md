@@ -96,8 +96,6 @@ Content Engine doesn't ship a tunnel or bridge itself. This project hasn't teste
 
 Official docs: [Cursor: Model Context Protocol](https://cursor.com/docs/mcp) and [Cursor: MCP install links](https://cursor.com/docs/mcp/install-links).
 
-These steps need the `content-engine-mcp` package on npm. Hold them until that publish lands.
-
 ### One-click install
 
 1. Install [Node.js](https://nodejs.org/en/download) if you haven't (see [Before you start](#before-you-start)).
