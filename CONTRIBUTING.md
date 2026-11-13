@@ -7,6 +7,7 @@ npm install
 npm test
 npm run build
 npm run smoke
+npm run pack:mcpb   # official `mcpb validate` + `mcpb pack`; archive root is manifest.json
 ```
 
 Node 20+ (CI runs 20 and 22).

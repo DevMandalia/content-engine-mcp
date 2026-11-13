@@ -1,6 +1,6 @@
 {
   "name": "content-engine-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Personal content engine for MCP agents: idea to newsletter and social drafts, locally.",
   "mcpName": "io.github.content-engine/content-engine-mcp",
   "type": "module",
@@ -9,7 +9,7 @@
     "node": ">=20"
   },
   "bin": {
-    "content-engine-mcp": "./dist/index.js"
+    "content-engine-mcp": "dist/index.js"
   },
   "main": "./dist/index.js",
   "exports": {
@@ -20,13 +20,14 @@
     "dist",
     "themes",
     "schemas",
+    "scripts/build.mjs",
     "README.md",
     "LICENSE",
     "CHANGELOG.md",
     "server.json"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "node scripts/build.mjs",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "vitest run",
@@ -34,17 +35,26 @@
     "smoke": "tsx scripts/smoke.ts",
     "pack:mcpb": "tsx scripts/pack-mcpb.ts",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "prepare": "node scripts/build.mjs",
+    "prepack": "node scripts/build.mjs",
+    "prepublishOnly": "node scripts/build.mjs"
   },
   "keywords": [
     "mcp",
+    "mcpb",
+    "mcp-server",
     "model-context-protocol",
     "content",
     "newsletter",
     "twitter",
     "instagram",
-    "linkedin"
+    "linkedin",
+    "claude-desktop"
   ],
+  "homepage": "https://github.com/DevMandalia/content-engine-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/DevMandalia/content-engine-mcp/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/DevMandalia/content-engine-mcp.git"

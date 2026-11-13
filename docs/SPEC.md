@@ -37,7 +37,7 @@ You approve, edit, kill, or request revisions. Standing preferences stick in `vo
 7. X counting uses `twitter-text` (URLs = 23, emoji/CJK weighted). Each tweet gets its own `https://x.com/intent/post?text=` link, numbered `1/N` when split.
 8. Send adapters: Resend and SMTP. Keys from env only. `confirm: true` is mandatory. `test_to_self` uses `owner.email`.
 9. Examples are cooking / taverna. No finance, medical, or legal advice templates.
-10. `server.json` + `package.json` `mcpName` are ready for the official MCP Registry; **npm and registry publish are later**. v0.1.0 is the git tag.
+10. `server.json` + `package.json` `mcpName` are ready for the official MCP Registry; **npm and registry publish are later**. v0.1.1 is the current git tag (v0.1.0 remains).
 
 ## Project layout
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 — 2026-11-13
+
+Desktop bundle and npm-readiness fix. npm is still **not** published.
+
+- MCPB archive has `manifest.json` at the zip root (not `mcpb/manifest.json`).
+- Production `node_modules` are packed so Claude Desktop can run `dist/index.js`.
+- `repository.type` is `git`. `mcpb validate` / `mcpb pack` use Anthropic's official CLI.
+- Claude Desktop settings: **Project folder** (`user_config.project_folder`, default `${HOME}/content-engine`) maps to `CONTENT_ENGINE_ROOT`.
+- npm package: `bin` `content-engine-mcp` → `dist/index.js` (node shebang), `files` includes `dist`, `prepare`/`prepack` build, version `0.1.1`.
+
 ## 0.1.0 — 2026-11-13
 
 First public slice. MIT licensed local MCP server (`stdio`) that turns an MCP-capable agent into a personal content engine without a multi-agent runtime.

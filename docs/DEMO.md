@@ -1,4 +1,4 @@
-# content-engine-mcp 0.1.0 smoke test
+# content-engine-mcp 0.1.1 smoke test
 
 In-process MCP client (InMemoryTransport), not a host LLM.
 
@@ -177,12 +177,12 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "seed": {
-    "id": "seed_bd34ff6c",
+    "id": "seed_2f133513",
     "title": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
     "kind": "how_to",
     "status": "active",
-    "created_at": "2026-11-13T19:01:55.558Z",
-    "updated_at": "2026-11-13T19:01:55.558Z",
+    "created_at": "2026-11-13T22:57:47.879Z",
+    "updated_at": "2026-11-13T22:57:47.880Z",
     "body": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it."
   }
 }
@@ -192,7 +192,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 ```
 {
   "ok": true,
-  "path": "briefs/seed_bd34ff6c.md",
+  "path": "briefs/seed_2f133513.md",
   "brief": "# Research brief: Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen\n\n## Working idea\nWeeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.\n\n## Classification\nhow_to\n\n## Audience\nHome cooks who will mash chickpeas after work.\n\n## Questions to answer\n1. What are the steps?\n2. Where do people usually fail?\n3. Time, tools, yield?\n\n## Angles\n- Useful: something the reader can cook / try / notice this week.\n- Honest: where the conventional advice is wrong or too fussy.\n- Small: one plate, not a cuisine.\n\n## Sources to find (no RSS in v0.1)\nAttach http(s) URLs with attach_source. Capture:\n- title\n- the quote you will actually use\n- every number, %, $, or date (those must be cited as [S1], [S2] in drafts)\n\nBlocked: private/loopback URLs. The server will refuse them.\n\n## Claims that will need [S#] citations\nAny sentence with a number, percent, currency amount, or date.\n\n## Voice reminder\nWrite like the voice guide in voice.md. Do not invent statistics.\n"
 }
 ```
@@ -208,7 +208,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
     "notes": "Peeling the skins is optional but makes it silkier.",
     "quote": "Peeling the skins",
     "fetched": false,
-    "added_at": "2026-11-13T19:01:55.575Z"
+    "added_at": "2026-11-13T22:57:47.890Z"
   },
   "sources": [
     {
@@ -218,7 +218,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
       "notes": "Peeling the skins is optional but makes it silkier.",
       "quote": "Peeling the skins",
       "fetched": false,
-      "added_at": "2026-11-13T19:01:55.575Z"
+      "added_at": "2026-11-13T22:57:47.890Z"
     }
   ]
 }
@@ -236,7 +236,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "version": 1,
-  "path": "drafts/seed_bd34ff6c/newsletter/v1.md",
+  "path": "drafts/seed_2f133513/newsletter/v1.md",
   "fact_check": {
     "ok": true,
     "flagged_text": "# Weeknight hummus\n\n## From the taverna\n\nI put the garlic in cold oil.\n\n## What we are cooking\n\nChickpeas, tahini, lemon, ice water.\n\n## How\n\nSimmer, peel, blend.\n\nStop when it looks like it could take a nap.",
@@ -252,7 +252,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "version": 1,
-  "path": "drafts/seed_bd34ff6c/x/v1.md",
+  "path": "drafts/seed_2f133513/x/v1.md",
   "fact_check": {
     "ok": true,
     "flagged_text": "Warm the tahini.\n\nThat is the whole trick.\n\nhttps://example.com/hummus",
@@ -279,11 +279,11 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "meta": {
-    "seed_id": "seed_bd34ff6c",
+    "seed_id": "seed_2f133513",
     "channel": "newsletter",
     "version": 1,
     "status": "ready",
-    "created_at": "2026-11-13T19:01:55.583Z",
+    "created_at": "2026-11-13T22:57:47.895Z",
     "fact_check_ok": true,
     "comments": []
   }
@@ -295,11 +295,11 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "meta": {
-    "seed_id": "seed_bd34ff6c",
+    "seed_id": "seed_2f133513",
     "channel": "newsletter",
     "version": 1,
     "status": "approved",
-    "created_at": "2026-11-13T19:01:55.583Z",
+    "created_at": "2026-11-13T22:57:47.895Z",
     "fact_check_ok": true,
     "comments": [
       "shorter openers"
@@ -316,8 +316,8 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
   "warnings": [],
   "issue": {
     "schema_version": "0.1.0",
-    "id": "issue_seed_bd34ff6c",
-    "seed_id": "seed_bd34ff6c",
+    "id": "issue_seed_2f133513",
+    "seed_id": "seed_2f133513",
     "title": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
     "subject": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
     "preheader": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
@@ -335,8 +335,8 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
     ],
     "channels": {
       "newsletter": {
-        "html_path": "out/seed_bd34ff6c/newsletter.html",
-        "markdown_path": "out/seed_bd34ff6c/newsletter.md",
+        "html_path": "out/seed_2f133513/newsletter.html",
+        "markdown_path": "out/seed_2f133513/newsletter.md",
         "bytes": 2895,
         "gmail_clip_warning": false,
         "layout": "editorial",
