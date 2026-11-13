@@ -1,5 +1,5 @@
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import { Client } from "@modelcontextprotocol/client";
+import { InMemoryTransport } from "@modelcontextprotocol/server";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -44,15 +44,15 @@ async function main() {
     return { text, isError };
   };
 
-  await call("apply_theme", { name: "babaganoush" });
+  await call("apply_theme", { name: "taverna-daily" });
   await call("setup_vision_and_audience", {
     vision: "A weeknight letter for people who want mezze, not a restaurant recap.",
     audience: "Home cooks who will mash chickpeas after work.",
     promise: "One plate you can actually make on a Tuesday.",
-    owner_name: "Alex",
-    owner_email: "alex@example.com"
+    owner_name: "Kitchen table",
+    owner_email: "kitchen@example.com"
   });
-  await call("setup_brand", { name: "Babaganoush", theme_mode: "dark" });
+  await call("setup_brand", { name: "Taverna Daily", theme_mode: "dark" });
   await call("setup_voice", {
     adjectives: ["warm", "practical", "unfussy"],
     samples: ["I put the garlic in cold oil and wait until the kitchen smells like someone else's house."]

@@ -15,6 +15,7 @@ const PaletteSchema = z.object({
 
 export const ThemeSchema = z.object({
   name: z.string(),
+  title: z.string().optional(),
   description: z.string(),
   mood: z.string(),
   theme_mode: z.enum(["light", "dark"]),
@@ -81,7 +82,7 @@ export function applyThemeToConfig(config: Config, theme: ThemeFile): Config {
     theme_mode: mode,
     brand: {
       ...config.brand,
-      name: config.brand.name || theme.name,
+      name: config.brand.name || theme.title || theme.name,
       mood: theme.mood,
       palette: paletteFor(theme, mode)
     },

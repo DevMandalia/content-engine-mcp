@@ -12,7 +12,7 @@ These beat the researcher’s optional “collapse to 10 tools / never send” p
 
 | Steering | This repo |
 |---|---|
-| MIT; TypeScript; `@modelcontextprotocol/sdk`; stdio; Node 20+ | Yes |
+| MIT; TypeScript; `@modelcontextprotocol/server` v2; stdio; Node 20+ | Yes (`@modelcontextprotocol/server` + `@modelcontextprotocol/client` 2.4.0). `registerTool` + `InMemoryTransport.createLinkedPair` still exist |
 | Server **never calls an LLM**; no MCP sampling (spec 2026-07-28 deprecates it) | Yes. Tools are deterministic + golden-file tested |
 | Codex has **no prompts / elicitation** — every setup step is a tool | Yes. Prompts exist but are optional |
 | Wizard, seed bank, research brief, versioned drafts, feedback → voice | Yes (richer than the 10-tool pack) |
@@ -20,7 +20,7 @@ These beat the researcher’s optional “collapse to 10 tools / never send” p
 | Fact-check: number / `%` / `$` / date without `[S#]` → `[UNSOURCED]`; newsletter **render blocked** unless `draft: true` / `--draft` | Yes |
 | Email: table layout, `bgcolor` on every cell, Gmail ~102 KB clip warning | Yes (inline styles; no MJML) |
 | X: pin `twitter-text`, numbered **separate** intent links | Yes. [X web intent](https://developer.x.com/en/docs/x-for-websites/tweet-button/guides/web-intent) documents `twitter.com/intent/tweet`; `x.com/intent/post` is the current equivalent |
-| Themes as YAML: `default`, **`babaganoush`**, `minimal-plain` | Yes. Palette is the owner’s: charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8` (not the researcher’s sample `#14191F` / `#EFDDB8` draft) |
+| Themes as YAML: `default`, **`taverna-daily`** (Taverna Daily), `minimal-plain` | Yes. Palette is the owner’s: charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8` (not the researcher’s sample `#14191F` / `#EFDDB8` draft) |
 | Instagram + LinkedIn copy packs in Phase 1; no native social APIs | Yes. PNG slides Phase 2 |
 | Optional send: **Resend + SMTP**, env keys only, `confirm: true` | Yes. Researcher pack said “no secrets / never sends”; owner overrode with confirm-gated adapters. Kit/beehiiv/Ghost remain Phase 2 |
 | `schemas/issue.schema.json`; CI on Node 20 and 22; MCP client test hits every tool | Yes |
@@ -67,7 +67,7 @@ Stars · last push: GitHub API, 13 Nov 2026, Cursor-leg researcher. Licenses fro
 | 1 | [beehiiv MCP](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp) (`mcp.beehiiv.com/mcp`) | Official hosted newsletter MCP, OAuth | Proprietary | Posts, templates, tags, segments, automations, assets, RSS, stats. Free read-only; Lite drafts; Pro sends. `get_post_content` used for voice | Platform CRUD. No citation check, no theme renderer, no X pack |
 | 2 | [Kit MCP](https://developers.kit.com/mcp/kit-mcp) (`app.kit.com/mcp`) | Official, OAuth, paid plans, 120 req/min | Proprietary | v4-shaped: subscribers, tags, segments, sequences, **broadcast drafts** | CRUD. Does not write, render, or validate |
 | 3 | [dancumberland/kit-mcp](https://github.com/dancumberland/kit-mcp) | Community Kit MCP | MIT · 2★ · 2026-03 | 13 composite tools / ~45 actions | Same CRUD gap; tiny |
-| 4 | [conorbronsdon/substack-mcp](https://github.com/conorbronsdon/substack-mcp) | Community (Substack has no first-party write MCP) | MIT · 48★ · 2026-11-12 | Drafts, Notes, analytics, subscribers. Draft-only by design; tool annotations for side effects | Session-cookie login. Notes can publish instantly. Worth copying **annotations**, not auth |
+| 4 | [Official Substack MCP](https://support.substack.com/hc/en-us/articles/50834026608916-How-to-connect-Substack-to-your-AI-Assistant) (`https://mcp.substack.com/api/v1/mcp`) + community [conorbronsdon/substack-mcp](https://github.com/conorbronsdon/substack-mcp) | Official is **read-only** (`mcp:read`); community is a write-adjacent session-cookie server | Official proprietary · community MIT · 48★ · 2026-11-12 | Official: dashboard metrics, traffic, settings for Bestseller admins. Cannot publish posts, send Notes, or modify the account. Community: drafts, Notes, analytics | Official is a stats pipe, not a writer. Community Notes can publish instantly. We do not send to Substack in v0.1 |
 | 5 | [TryGhost/ghst](https://github.com/TryGhost/ghst) (`ghst mcp stdio`) | **First-party** Ghost MCP, pre-1.0 | MIT · 37★ · 2026-11-13 | Posts, pages, tags, members, newsletters, tiers, webhooks | Official CRUD. No generation. (Earlier notes that “Ghost has no first-party MCP” are outdated.) |
 | 6 | [MFYDev/ghost-mcp](https://github.com/MFYDev/ghost-mcp) | Community Ghost MCP | MIT · 246★ · 2026-04 | Browse/create/edit posts, members, newsletters | Mature CRUD |
 | 7 | [Mailchimp Transactional MCP](https://mailchimp.com/developer/transactional/guides/how-to-use-mailchimps-transactional-messaging-mcp/) | Official Mandrill MCP | Proprietary | `build_template`, `call_api`, `diagnose_failed_send` (9 tools) | Transactional only. Marketing API: community e.g. [damientilman/mailchimp-mcp-server](https://github.com/damientilman/mailchimp-mcp-server) (author claims a huge tool list — treat as hype) |

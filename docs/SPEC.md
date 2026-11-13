@@ -30,7 +30,7 @@ You approve, edit, kill, or request revisions. Standing preferences stick in `vo
 
 1. Default project folder is `./content-engine/` (`CONTENT_ENGINE_ROOT` or `--root`).
 2. One editable `config.yaml` plus markdown/yaml files. The user can edit them by hand.
-3. Themes are YAML under `themes/`. Shipped: `default`, `babaganoush` (Greek taverna; olive-charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8`), `minimal-plain`.
+3. Themes are YAML under `themes/`. Shipped: `default`, **`taverna-daily`** (Taverna Daily; olive-charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8`), `minimal-plain`.
 4. Source ids are `S1`, `S2`, … per seed. Optional `fetch=true` loads a URL after an SSRF private/loopback block. Redirects are re-checked.
 5. Fact-check: any sentence with a number, `%`, `$`/`€`/`£`, or date and no `[S#]` matching an attached source is flagged `[UNSOURCED]`. Unknown `[S99]` is also a flag. Ready/approve require a clean check. **Newsletter render is blocked** until it passes, unless `draft=true` or CLI `--draft` (warnings only).
 6. Email HTML is table-based, inline CSS, `bgcolor` on every cell. Warn above Gmail’s ~102 KB clip.

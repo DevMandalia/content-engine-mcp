@@ -5,12 +5,27 @@
   "description": "Rendered multi-channel issue produced by content-engine-mcp v0.1. Copy packs only; no social publish.",
   "type": "object",
   "additionalProperties": true,
-  "required": ["schema_version", "id", "seed_id", "title", "theme", "channels"],
+  "required": [
+    "schema_version",
+    "id",
+    "seed_id",
+    "title",
+    "subject",
+    "preheader",
+    "theme",
+    "channels"
+  ],
   "properties": {
     "schema_version": { "const": "0.1.0" },
     "id": { "type": "string" },
     "seed_id": { "type": "string" },
     "title": { "type": "string" },
+    "subject": { "type": "string", "maxLength": 90 },
+    "preheader": { "type": "string", "maxLength": 110 },
+    "subjectAlternatives": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 90 }
+    },
     "status": {
       "type": "string",
       "enum": ["planned", "drafted", "ready", "approved", "sent"]
@@ -27,6 +42,23 @@
           "id": { "type": "string", "pattern": "^S[0-9]+$" },
           "url": { "type": "string", "format": "uri" },
           "title": { "type": "string" }
+        }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["path", "bytes", "sha256"],
+            "properties": {
+              "path": { "type": "string" },
+              "bytes": { "type": "integer" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
         }
       }
     },

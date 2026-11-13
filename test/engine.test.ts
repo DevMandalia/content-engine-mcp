@@ -9,20 +9,20 @@ import { setupKitchen, tempEngine } from "./helpers.js";
 describe("wizard → config", () => {
   it("writes config.yaml and markdown files", () => {
     const engine = tempEngine();
-    engine.applyTheme("babaganoush");
+    engine.applyTheme("taverna-daily");
     engine.setupVisionAndAudience({
       vision: "Weeknight mezze.",
       audience: "Tired cooks.",
-      owner_email: "alex@example.com",
-      owner_name: "Alex"
+      owner_email: "kitchen@example.com",
+      owner_name: "Kitchen table"
     });
-    engine.setupBrand({ name: "Babaganoush", theme_mode: "dark" });
+    engine.setupBrand({ name: "Taverna Daily", theme_mode: "dark" });
     engine.setupVoice({
       adjectives: ["warm"],
       samples: ["I warm the tahini until it smells like sesame, not like the jar."]
     });
     const setup = engine.getSetup();
-    expect(setup.config.theme).toBe("babaganoush");
+    expect(setup.config.theme).toBe("taverna-daily");
     expect(setup.config.brand.palette.background.toUpperCase()).toBe("#12140F");
     expect(setup.config.brand.palette.accent.toUpperCase()).toBe("#A9B455");
     expect(setup.config.vision).toMatch(/mezze/i);
@@ -89,10 +89,10 @@ describe("send_newsletter confirm", () => {
       }
     });
     await expect(
-      sending.sendNewsletter({ seed_id: seed.id, adapter: "resend", confirm: false, to: "alex@example.com" })
+      sending.sendNewsletter({ seed_id: seed.id, adapter: "resend", confirm: false, to: "kitchen@example.com" })
     ).rejects.toBeInstanceOf(EngineError);
     await expect(
-      sending.sendNewsletter({ seed_id: seed.id, adapter: "resend", confirm: false, to: "alex@example.com" })
+      sending.sendNewsletter({ seed_id: seed.id, adapter: "resend", confirm: false, to: "kitchen@example.com" })
     ).rejects.toThrow(/confirm/i);
     expect(called).toBe(0);
   });
@@ -110,7 +110,7 @@ describe("send_newsletter confirm", () => {
       root: engine.paths.root,
       sendImpl: {
         resend: async (msg) => {
-          expect(msg.to).toBe("alex@example.com");
+          expect(msg.to).toBe("kitchen@example.com");
           expect(msg.html).toMatch(/bgcolor="/);
           return { id: "msg_test" };
         }

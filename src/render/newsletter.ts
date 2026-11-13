@@ -2,6 +2,8 @@ import { GMAIL_CLIP_BYTES } from "../version.js";
 import type { Config, Layout, Palette } from "../types.js";
 import type { ThemeFile } from "../types.js";
 
+export const UNSUBSCRIBE_TOKEN = "{{unsubscribe_url}}";
+
 export type NewsletterIssueInput = {
   title: string;
   preheader?: string;
@@ -97,11 +99,7 @@ function classic(input: NewsletterIssueInput, palette: Palette, fonts: string[])
   }
   if (input.footer) {
     rows.push(
-      `<tr>${td(
-        `<p style="margin:0;font-size:13px;color:${palette.muted};">${esc(input.footer)}</p>`,
-        palette,
-        `padding:16px 24px 24px;border-top:1px solid ${palette.muted};`
-      )}</tr>`
+      `<tr>${td(input.footer, palette, `padding:16px 24px 24px;border-top:1px solid ${palette.muted};`)}</tr>`
     );
   }
   return wrapEmail(rows.join(""), palette, fonts, input.preheader ?? input.title);
@@ -128,7 +126,7 @@ function digest(input: NewsletterIssueInput, palette: Palette, fonts: string[]):
     .join("");
   const header = `<tr>${td(`<h1 style="margin:0;font-size:26px;color:${palette.foreground};">${esc(input.title)}</h1>`, palette, "padding:20px 24px;")}</tr>`;
   const footer = input.footer
-    ? `<tr>${td(`<p style="margin:0;font-size:13px;color:${palette.muted};">${esc(input.footer)}</p>`, palette, "padding:16px 24px 24px;")}</tr>`
+    ? `<tr>${td(input.footer, palette, "padding:16px 24px 24px;")}</tr>`
     : "";
   return wrapEmail(header + cards + footer, palette, fonts, input.preheader ?? input.title);
 }
@@ -170,9 +168,7 @@ function editorial(input: NewsletterIssueInput, palette: Palette, fonts: string[
     );
   }
   if (input.footer) {
-    rows.push(
-      `<tr>${td(`<p style="margin:0;font-size:13px;color:${palette.muted};">${esc(input.footer)}</p>`, palette, "padding:16px 28px 28px;")}</tr>`
-    );
+    rows.push(`<tr>${td(input.footer, palette, "padding:16px 28px 28px;")}</tr>`);
   }
   return wrapEmail(rows.join(""), palette, fonts, input.preheader ?? input.title);
 }
@@ -205,7 +201,17 @@ export function parseNewsletterMarkdown(markdown: string, config: Config): Newsl
       html: mdToInline(body)
     });
   }
-  return { title, preheader: title, sections, footer: config.brand.name ? `${config.brand.name} · You can reply to this email.` : undefined };
+  return { title, preheader: title, sections, footer: defaultFooterHtml(config, paletteForParse(config)) };
+}
+
+function paletteForParse(config: Config): Palette {
+  return config.brand.palette;
+}
+
+export function defaultFooterHtml(config: Config, palette: Palette): string {
+  const brand = esc(config.brand.name || "This list");
+  return `<p style="margin:0;font-size:13px;color:${palette.muted};">${brand} · You can reply to this email.</p>
+<p style="margin:8px 0 0;font-size:12px;color:${palette.muted};"><a href="${UNSUBSCRIBE_TOKEN}" style="color:${palette.muted};text-decoration:underline;">Unsubscribe</a></p>`;
 }
 
 export function renderNewsletter(
@@ -235,6 +241,9 @@ export function renderNewsletter(
   );
   return { html, markdown: mdOut.trim() + "\n", layout, bytes, gmail_clip_warning, warnings };
 }
+
+export type EmailRenderer = (markdown: string, config: Config, theme: ThemeFile) => NewsletterRender;
+export const tableEmailRenderer: EmailRenderer = renderNewsletter;
 
 export function everyTdHasBgcolor(html: string): boolean {
   const tds = html.match(/<td\b[^>]*>/gi) ?? [];

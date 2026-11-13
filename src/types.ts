@@ -63,6 +63,9 @@ export type Config = {
     from_name: string;
     sections: NewsletterSection[];
   };
+  x: {
+    intent_path: "post" | "tweet";
+  };
   voice: {
     adjectives: string[];
   };
@@ -79,6 +82,7 @@ export type Config = {
 
 export type ThemeFile = {
   name: string;
+  title?: string;
   description: string;
   mood: string;
   theme_mode: "light" | "dark";
@@ -178,6 +182,7 @@ export function defaultConfig(): Config {
         { id: "close", title: "Before you go", required: false }
       ]
     },
+    x: { intent_path: "post" },
     voice: { adjectives: [] },
     sourcing: {
       require_urls: true,

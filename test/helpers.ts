@@ -12,15 +12,15 @@ export function tempEngine(overrides?: ConstructorParameters<typeof ContentEngin
 }
 
 export async function setupKitchen(engine: ContentEngine) {
-  engine.applyTheme("babaganoush");
+  engine.applyTheme("taverna-daily");
   engine.setupVisionAndAudience({
     vision: "A weeknight letter for people who want mezze, not a restaurant recap.",
     audience: "Home cooks who will mash chickpeas after work.",
     promise: "One plate you can actually make on a Tuesday.",
-    owner_name: "Alex",
-    owner_email: "alex@example.com"
+    owner_name: "Kitchen table",
+    owner_email: "kitchen@example.com"
   });
-  engine.setupBrand({ name: "Babaganoush", mood: "warm, unhurried", theme_mode: "dark" });
+  engine.setupBrand({ name: "Taverna Daily", mood: "warm, unhurried", theme_mode: "dark" });
   engine.setupChannels({
     channels: [
       { id: "newsletter", enabled: true, cadence: "weekly", day: "thursday" },

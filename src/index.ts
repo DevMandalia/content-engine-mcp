@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { serveStdio } from "@modelcontextprotocol/server/stdio";
 import { ContentEngine } from "./engine.js";
 import { resolveProjectRoot } from "./paths.js";
 import { createServer } from "./server.js";
@@ -32,16 +32,7 @@ Secrets (RESEND_API_KEY, SMTP_*) belong in the environment, never in files.
   return { root: resolveProjectRoot(root), draft };
 }
 
-async function main() {
-  const { root, draft } = parseArgs(process.argv.slice(2));
-  const engine = new ContentEngine({ root, draftDefault: draft });
-  const server = createServer({ engine });
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error(`content-engine-mcp ${VERSION} stdio · project ${root}${draft ? " · draft mode" : ""}`);
-}
-
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const { root, draft } = parseArgs(process.argv.slice(2));
+const engine = new ContentEngine({ root, draftDefault: draft });
+console.error(`content-engine-mcp ${VERSION} stdio · project ${root}${draft ? " · draft mode" : ""}`);
+serveStdio(() => createServer({ engine }));

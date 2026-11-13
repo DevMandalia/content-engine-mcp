@@ -9,7 +9,7 @@ MIT. v0.1.0. The server never calls an LLM.
 ## 60-second quickstart
 
 ```bash
-git clone https://github.com/content-engine/content-engine-mcp.git
+git clone https://github.com/DevMandalia/content-engine-mcp.git
 cd content-engine-mcp
 npm install
 npm run build
@@ -81,11 +81,11 @@ After `npm publish` (later): `npx -y content-engine-mcp`.
 
 ## Walkthrough
 
-Example theme: **babaganoush** (Greek taverna). Idea:
+Example theme: **Taverna Daily** (`taverna-daily`). Idea:
 
 > Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.
 
-1. `apply_theme` name=`babaganoush`
+1. `apply_theme` name=`taverna-daily`
 2. `setup_vision_and_audience`, `setup_brand`, `setup_voice` (paste 1–3 of your own paragraphs), `setup_sourcing`
 3. `capture_seed` with the idea above
 4. `build_research_brief` — then **you** (the agent) search the web
@@ -106,7 +106,7 @@ YAML in `themes/`: sections, word limits, voice do/don't, banned words, dark/lig
 | Name | Notes |
 |---|---|
 | `default` | Clean, topic-agnostic, light |
-| `babaganoush` | Dark olive-charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8` |
+| `taverna-daily` | Taverna Daily. Dark olive-charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8` |
 | `minimal-plain` | Black/white, system fonts |
 
 ## Send (optional)
@@ -114,7 +114,7 @@ YAML in `themes/`: sections, word limits, voice do/don't, banned words, dark/lig
 ```bash
 # Resend
 RESEND_API_KEY=re_...
-RESEND_FROM="Babaganoush <you@example.com>"
+RESEND_FROM="Taverna Daily <you@example.com>"
 
 # SMTP (Gmail app password)
 SMTP_HOST=smtp.gmail.com
@@ -150,4 +150,7 @@ CI: GitHub Actions on Node 20 and 22.
 - No send/publish without explicit `confirm: true`
 - No secrets in project files
 - No financial / medical / legal advice templates
-- SSRF: source fetch blocks loopback and private networks
+- SSRF: source fetch blocks loopback, private, link-local, CGNAT, and metadata hosts; redirects are re-checked
+- Writes stay inside the project folder (path jail). Exports include a SHA-256 `manifest.json`
+- Newsletter HTML lints out `<script>` / `<iframe>` / `<form>` / `on*` handlers
+- MCPB bundle: `npm run pack:mcpb` writes `dist/content-engine-mcp.mcpb`

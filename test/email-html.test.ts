@@ -24,7 +24,7 @@ function configWith(layout: Config["newsletter"]["layout"], themeName: string): 
   config.theme = theme.name;
   config.theme_mode = theme.theme_mode;
   config.brand = {
-    name: "Babaganoush",
+    name: "Taverna Daily",
     mood: theme.mood,
     palette: theme.palettes[theme.theme_mode]
   };
@@ -36,7 +36,7 @@ function configWith(layout: Config["newsletter"]["layout"], themeName: string): 
 describe("newsletter HTML", () => {
   for (const layout of ["classic", "digest", "editorial"] as const) {
     it(`renders ${layout} with bgcolor on every cell`, async () => {
-      const { config, theme } = configWith(layout, layout === "editorial" ? "babaganoush" : layout === "digest" ? "default" : "minimal-plain");
+      const { config, theme } = configWith(layout, layout === "editorial" ? "taverna-daily" : layout === "digest" ? "default" : "minimal-plain");
       const rendered = renderNewsletter(body, config, theme);
       expect(rendered.layout).toBe(layout);
       expect(everyTdHasBgcolor(rendered.html)).toBe(true);

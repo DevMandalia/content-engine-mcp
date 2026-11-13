@@ -8,7 +8,7 @@ describe("splitThread", () => {
     expect(split.tweets).toHaveLength(1);
     expect(split.numbered).toBe(false);
     expect(split.tweets[0]?.intent_url).toBe(
-      `https://x.com/intent/post?text=${encodeURIComponent(text)}`
+      `https://x.com/intent/post?text=${encodeURIComponent(text).replace(/[!'()*]/g, (ch) => `%${ch.charCodeAt(0).toString(16).toUpperCase()}`)}`
     );
     expect(split.tweets[0]?.valid).toBe(true);
   });

@@ -1,0 +1,24 @@
+{
+  "manifest_version": "0.2",
+  "name": "content-engine-mcp",
+  "display_name": "Content Engine",
+  "version": "0.1.0",
+  "description": "Local MCP content engine: seeds, citations, email-safe HTML, X intent links.",
+  "long_description": "Turns an MCP-capable agent into a personal content engine. You write; the server structures, fact-checks, and renders a newsletter plus X, Instagram, and LinkedIn copy packs. No sampling. No social APIs.",
+  "author": {
+    "name": "Content Engine MCP contributors"
+  },
+  "repository": {
+    "url": "https://github.com/DevMandalia/content-engine-mcp"
+  },
+  "license": "MIT",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {}
+    }
+  }
+}

@@ -32,6 +32,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "smoke": "tsx scripts/smoke.ts",
+    "pack:mcpb": "tsx scripts/pack-mcpb.ts",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build"
   },
@@ -46,14 +47,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/content-engine/content-engine-mcp.git"
+    "url": "https://github.com/DevMandalia/content-engine-mcp.git"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.22.0",
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@modelcontextprotocol/server": "^2.4.0",
     "nodemailer": "^7.0.6",
     "twitter-text": "3.1.0",
     "yaml": "^2.8.1",
-    "zod": "^3.25.0"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",

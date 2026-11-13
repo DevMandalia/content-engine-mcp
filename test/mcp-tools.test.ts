@@ -1,5 +1,5 @@
-import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
+import { Client } from "@modelcontextprotocol/client";
+import { InMemoryTransport } from "@modelcontextprotocol/server";
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -53,15 +53,15 @@ describe("MCP server tools", () => {
     };
 
     await record("list_themes");
-    await record("apply_theme", { name: "babaganoush" });
+    await record("apply_theme", { name: "taverna-daily" });
     await record("setup_vision_and_audience", {
       vision: "Weeknight mezze, not a restaurant recap.",
       audience: "Home cooks after work.",
       promise: "One plate on a Tuesday.",
-      owner_name: "Alex",
-      owner_email: "alex@example.com"
+      owner_name: "Kitchen table",
+      owner_email: "kitchen@example.com"
     });
-    await record("setup_brand", { name: "Babaganoush", theme_mode: "dark" });
+    await record("setup_brand", { name: "Taverna Daily", theme_mode: "dark" });
     await record("setup_channels", {
       channels: [
         { id: "newsletter", enabled: true, cadence: "weekly", day: "thursday" },
@@ -82,7 +82,9 @@ describe("MCP server tools", () => {
       samples: ["I put the garlic in cold oil and wait."]
     });
     await record("setup_sourcing", { require_urls: true, allow_personal_anecdotes_unsourced: true });
-    await record("get_setup");
+    const setup = await record("get_setup");
+    expect((setup.result as { structuredContent?: unknown }).structuredContent).toBeTruthy();
+    expect(setup.text.length).toBeGreaterThan(0);
 
     const captured = await record("capture_seed", {
       body: "Weeknight hummus: simmer canned chickpeas, peel the skins, blend with ice water and tahini.",

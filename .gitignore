@@ -10,4 +10,5 @@ content-engine/
 agent-tools/
 tmp/
 *.log
+*.mcpb
 .vitest/

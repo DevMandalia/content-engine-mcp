@@ -1,5 +1,6 @@
-name: babaganoush
-description: Greek-taverna kitchen table. Dark olive-charcoal with olive, gold, and cream.
+name: taverna-daily
+title: Taverna Daily
+description: Taverna Daily — a weeknight kitchen table. Dark olive-charcoal with olive, gold, and cream.
 mood: warm, unhurried, a little smoky, like the last table still talking
 theme_mode: dark
 palettes:
@@ -47,15 +48,15 @@ banned_words:
 newsletter:
   layout: editorial
   sections:
-    - id: opener
-      title: From the taverna
+    - id: mezze
+      title: Mezze
       required: true
       word_limit: 70
     - id: plate
-      title: What we are cooking
+      title: Today's plate
       required: true
-    - id: method
-      title: How
+    - id: kitchen
+      title: In the kitchen
       required: true
     - id: table
       title: At the table

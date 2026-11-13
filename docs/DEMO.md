@@ -8,10 +8,10 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 ```
 {
   "ok": true,
-  "theme": "babaganoush",
+  "theme": "taverna-daily",
   "config": {
     "version": 1,
-    "theme": "babaganoush",
+    "theme": "taverna-daily",
     "theme_mode": "dark",
     "owner": {
       "name": "",
@@ -21,7 +21,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
     "audience": "",
     "promise": "",
     "brand": {
-      "name": "babaganoush",
+      "name": "Taverna Daily",
       "mood": "warm, unhurried, a little smoky, like the last table still talking",
       "palette": {
         "background": "#12140F",
@@ -51,22 +51,22 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
     },
     "newsletter": {
       "layout": "editorial",
-      "from_name": "babaganoush",
+      "from_name": "taverna-daily",
       "sections": [
         {
-          "id": "opener",
-          "title": "From the taverna",
+          "id": "mezze",
+          "title": "Mezze",
           "required": true,
           "word_limit": 70
         },
         {
           "id": "plate",
-          "title": "What we are cooking",
+          "title": "Today's plate",
           "required": true
         },
         {
-          "id": "method",
-          "title": "How",
+          "id": "kitchen",
+          "title": "In the kitchen",
           "required": true
         },
         {
@@ -75,6 +75,9 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
           "required": false
         }
       ]
+    },
+    "x": {
+      "intent_path": "post"
     },
     "voice": {
       "adjectives": [
@@ -90,8 +93,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
       "notes": ""
     },
     "safety": {
-      "require_confirm_to_send": true,
-      "block
+   
 …
 ```
 
@@ -112,7 +114,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "brand": {
-    "name": "Babaganoush",
+    "name": "Taverna Daily",
     "mood": "warm, unhurried, a little smoky, like the last table still talking",
     "palette": {
       "background": "#12140F",
@@ -175,12 +177,12 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "seed": {
-    "id": "seed_ae4e67bc",
+    "id": "seed_bd34ff6c",
     "title": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
     "kind": "how_to",
     "status": "active",
-    "created_at": "2026-11-13T18:46:53.953Z",
-    "updated_at": "2026-11-13T18:46:53.953Z",
+    "created_at": "2026-11-13T19:01:55.558Z",
+    "updated_at": "2026-11-13T19:01:55.558Z",
     "body": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it."
   }
 }
@@ -190,7 +192,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 ```
 {
   "ok": true,
-  "path": "briefs/seed_ae4e67bc.md",
+  "path": "briefs/seed_bd34ff6c.md",
   "brief": "# Research brief: Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen\n\n## Working idea\nWeeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.\n\n## Classification\nhow_to\n\n## Audience\nHome cooks who will mash chickpeas after work.\n\n## Questions to answer\n1. What are the steps?\n2. Where do people usually fail?\n3. Time, tools, yield?\n\n## Angles\n- Useful: something the reader can cook / try / notice this week.\n- Honest: where the conventional advice is wrong or too fussy.\n- Small: one plate, not a cuisine.\n\n## Sources to find (no RSS in v0.1)\nAttach http(s) URLs with attach_source. Capture:\n- title\n- the quote you will actually use\n- every number, %, $, or date (those must be cited as [S1], [S2] in drafts)\n\nBlocked: private/loopback URLs. The server will refuse them.\n\n## Claims that will need [S#] citations\nAny sentence with a number, percent, currency amount, or date.\n\n## Voice reminder\nWrite like the voice guide in voice.md. Do not invent statistics.\n"
 }
 ```
@@ -206,7 +208,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
     "notes": "Peeling the skins is optional but makes it silkier.",
     "quote": "Peeling the skins",
     "fetched": false,
-    "added_at": "2026-11-13T18:46:53.973Z"
+    "added_at": "2026-11-13T19:01:55.575Z"
   },
   "sources": [
     {
@@ -216,7 +218,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
       "notes": "Peeling the skins is optional but makes it silkier.",
       "quote": "Peeling the skins",
       "fetched": false,
-      "added_at": "2026-11-13T18:46:53.973Z"
+      "added_at": "2026-11-13T19:01:55.575Z"
     }
   ]
 }
@@ -225,7 +227,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 ## get_draft_kit
 ```
 {
-  "kit": "# Draft kit — newsletter\n\n## Seed\nWeeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.\n\n## Voice guide\n# Voice guide\n\nAdjectives: warm, practical, unfussy\n\n## Do\n- Sound warm, practical, unfussy.\n- Write in first person when telling what you cooked, tried, or learned.\n- Contractions are fine.\n- Write like you are handing someone a plate, not a manifesto.\n- Name the ingredient, the pan, the smell.\n- Allow a short story from the kitchen, then get to the method.\n\n## Don't\n- No emoji unless the user later asks for them.\n- Do not invent statistics, dollar amounts, or dates.\n- Do not give financial, medical, or legal advice.\n- Do not sound like a press release or a growth-hack thread.\n- Do not moralize anyone's Tuesday dinner.\n- Do not write like a restaurant PR listicle.\n- Do not invent chef-y French when Greek or plain English will do.\n\n## Banned words / phrases\n- grindset\n- hustle\n- 10x\n- secret sauce\n- lifestyle brand\n\n## Lines from your samples (match this grain)\n> I put the garlic in cold oil and wait until the kitchen smells like someone else's house.\n\n\n## Theme\nbabaganoush (dark)\nWord limit: 800\nBanned: grindset, hustle, 10x, secret sauce, lifestyle brand\n\n## Research brief\n# Research brief: Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen\n\n## Working idea\nWeeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.\n\n## Classification\nhow_to\n\n## Audience\nHome cooks who will mash chickpeas after work.\n\n## Questions to answer\n1. What are the steps?\n2. Where do people usually fail?\n3. Time, tools, yield?\n\n## Angles\
+  "kit": "# Draft kit — newsletter\n\n## Seed\nWeeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.\n\n## Voice guide\n# Voice guide\n\nAdjectives: warm, practical, unfussy\n\n## Do\n- Sound warm, practical, unfussy.\n- Write in first person when telling what you cooked, tried, or learned.\n- Contractions are fine.\n- Write like you are handing someone a plate, not a manifesto.\n- Name the ingredient, the pan, the smell.\n- Allow a short story from the kitchen, then get to the method.\n\n## Don't\n- No emoji unless the user later asks for them.\n- Do not invent statistics, dollar amounts, or dates.\n- Do not give financial, medical, or legal advice.\n- Do not sound like a press release or a growth-hack thread.\n- Do not moralize anyone's Tuesday dinner.\n- Do not write like a restaurant PR listicle.\n- Do not invent chef-y French when Greek or plain English will do.\n\n## Banned words / phrases\n- grindset\n- hustle\n- 10x\n- secret sauce\n- lifestyle brand\n\n## Lines from your samples (match this grain)\n> I put the garlic in cold oil and wait until the kitchen smells like someone else's house.\n\n\n## Theme\ntaverna-daily (dark)\nWord limit: 800\nBanned: grindset, hustle, 10x, secret sauce, lifestyle brand\n\n## Research brief\n# Research brief: Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen\n\n## Working idea\nWeeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blend with ice water and tahini. People overcomplicate it.\n\n## Classification\nhow_to\n\n## Audience\nHome cooks who will mash chickpeas after work.\n\n## Questions to answer\n1. What are the steps?\n2. Where do people usually fail?\n3. Time, tools, yield?\n\n## Angle
 …
 ```
 
@@ -234,7 +236,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "version": 1,
-  "path": "drafts/seed_ae4e67bc/newsletter/v1.md",
+  "path": "drafts/seed_bd34ff6c/newsletter/v1.md",
   "fact_check": {
     "ok": true,
     "flagged_text": "# Weeknight hummus\n\n## From the taverna\n\nI put the garlic in cold oil.\n\n## What we are cooking\n\nChickpeas, tahini, lemon, ice water.\n\n## How\n\nSimmer, peel, blend.\n\nStop when it looks like it could take a nap.",
@@ -250,7 +252,7 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "version": 1,
-  "path": "drafts/seed_ae4e67bc/x/v1.md",
+  "path": "drafts/seed_bd34ff6c/x/v1.md",
   "fact_check": {
     "ok": true,
     "flagged_text": "Warm the tahini.\n\nThat is the whole trick.\n\nhttps://example.com/hummus",
@@ -277,11 +279,11 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "meta": {
-    "seed_id": "seed_ae4e67bc",
+    "seed_id": "seed_bd34ff6c",
     "channel": "newsletter",
     "version": 1,
     "status": "ready",
-    "created_at": "2026-11-13T18:46:53.980Z",
+    "created_at": "2026-11-13T19:01:55.583Z",
     "fact_check_ok": true,
     "comments": []
   }
@@ -293,11 +295,11 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
 {
   "ok": true,
   "meta": {
-    "seed_id": "seed_ae4e67bc",
+    "seed_id": "seed_bd34ff6c",
     "channel": "newsletter",
     "version": 1,
     "status": "approved",
-    "created_at": "2026-11-13T18:46:53.980Z",
+    "created_at": "2026-11-13T19:01:55.583Z",
     "fact_check_ok": true,
     "comments": [
       "shorter openers"
@@ -314,11 +316,14 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
   "warnings": [],
   "issue": {
     "schema_version": "0.1.0",
-    "id": "issue_seed_ae4e67bc",
-    "seed_id": "seed_ae4e67bc",
+    "id": "issue_seed_bd34ff6c",
+    "seed_id": "seed_bd34ff6c",
     "title": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
+    "subject": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
+    "preheader": "Weeknight hummus: simmer canned chickpeas with baking soda, peel the skins, blen",
+    "subjectAlternatives": [],
     "status": "drafted",
-    "theme": "babaganoush",
+    "theme": "taverna-daily",
     "draft": false,
     "warnings": [],
     "sources": [
@@ -330,30 +335,36 @@ Tools listed (33): setup_vision_and_audience, setup_brand, setup_channels, setup
     ],
     "channels": {
       "newsletter": {
-        "html_path": "out/seed_ae4e67bc/newsletter.html",
-        "markdown_path": "out/seed_ae4e67bc/newsletter.md",
-        "bytes": 2738,
+        "html_path": "out/seed_bd34ff6c/newsletter.html",
+        "markdown_path": "out/seed_bd34ff6c/newsletter.md",
+        "bytes": 2895,
         "gmail_clip_warning": false,
         "layout": "editorial",
-        "fact_check_ok": true
+        "fact_check_ok": true,
+        "html_lint_ok": true
       },
       "x": {
         "tweets": [
           {
-            "index": 1,
-            "total": 1,
-            "text": "Warm the tahini. That is the whole trick.\n\nhttps://example.com/hummus",
-            "weighted_length": 66,
+            "text": "1/2 Warm the tahini. That is the whole trick.",
+            "weighted_length": 45,
             "valid": true,
-            "intent_url": "https://x.com/intent/post?text=Warm%20the%20tahini.%20That%20is%20the%20whole%20trick.%0A%0Ahttps%3A%2F%2Fexample.com%2Fhummus"
-          }
-        ],
-        "path": "out/seed_ae4e67bc/x.txt"
-      }
-    }
-  },
-  "out_dir": "out/seed_ae4e67bc"
-}
+            "intent_url": "https://x.com/intent/post?text=1%2F2%20Warm%20the%20tahini.%20That%20is%20the%20whole%20trick.",
+            "hashtags": [],
+            "index": 1,
+            "total": 2,
+            "more_than_one_link": false
+          },
+          {
+            "text": "2/2 https://example.com/hummus",
+            "weighted_length": 27,
+            "valid": true,
+            "intent_url": "https://x.com/intent/post?text=2%2F2%20https%3A%2F%2Fexample.com%2Fhummus",
+            "hashtags": [],
+            "index": 2,
+            "total": 2,
+            "more
+…
 ```
 
 ## send_newsletter (error)
