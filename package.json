@@ -51,7 +51,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.22.0",
     "nodemailer": "^7.0.6",
-    "twitter-text": "^3.1.0",
+    "twitter-text": "3.1.0",
     "yaml": "^2.8.1",
     "zod": "^3.25.0"
   },

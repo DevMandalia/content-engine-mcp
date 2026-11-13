@@ -31,9 +31,9 @@ npx vitest run -u
 
 Commit the updated `test/golden/` files with an explanation.
 
-## MCP Registry (later)
+## MCP Registry (later — files are ready, nothing is published)
 
-npm publish and `mcp-publisher publish` are **not** part of v0.1. When you do publish:
+`server.json` and `package.json` `mcpName` already match. Do **not** run `npm publish` or `mcp-publisher publish` until the owner says so in their own words. When you do publish:
 
 1. Change `server.json` `name` and `package.json` `mcpName` to `io.github.<your-user>/content-engine-mcp`.
 2. Keep `description` ≤ 100 characters.

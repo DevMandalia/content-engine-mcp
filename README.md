@@ -140,7 +140,7 @@ CI: GitHub Actions on Node 20 and 22.
 ## Docs
 
 - [SPEC.md](docs/SPEC.md) — Phase 1 spec, assumptions, Phase 2
-- [RESEARCH.md](docs/RESEARCH.md) — competitive table (we do not copy Postiz/AGPL)
+- [RESEARCH.md](docs/RESEARCH.md) — 24-row prior-art table, wedge, design check (no Postiz/AGPL copies; `content-repurposer-mcp` is a dead listing)
 - [SCHEDULING.md](docs/SCHEDULING.md) — Claude / Codex / cron / Actions
 - [DEMO.md](docs/DEMO.md) — recorded smoke transcript
 - [CHANGELOG.md](CHANGELOG.md)

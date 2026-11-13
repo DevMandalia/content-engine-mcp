@@ -1,118 +1,146 @@
 # Research: personal content engines and MCP servers
 
-Time-boxed scan of adjacent products, open-source engines, and newsletter/social MCP servers. Capability claims below come from public docs, GitHub READMEs, and vendor help pages as of 13 Nov 2026. No usage, revenue, or performance numbers are invented.
+This file merges our Phase 1 scan with the Cursor-leg prior-art pack (researcher, 13 Nov 2026 PT). That pack checked every listed URL with curl (HTTP 200 unless noted) and read GitHub stars / last-push from the GitHub API that day. We do not invent additional stats.
 
-**What this project is not:** a scheduler, a publisher, or a multi-agent research swarm. Phase 1 is a **local, tools-only MCP server** that stores voice, ideas, briefs, sources, drafts, and renders, then hands copy packs back to the user. The user's existing MCP-capable agent (Claude Desktop/Code, Cursor, Codex, ChatGPT, Windsurf, …) does the web research and the writing.
+**Wedge (unchanged):** every newsletter and social MCP we found is a **platform CRUD pipe**. The few “repurpose this text” MCPs have no sources, no themes, and no email-safe HTML. Nobody ships an **open, account-free, deterministic content toolkit** that (1) takes seeds + URLs into a cited brief, (2) flags numbers without `[S#]` as `[UNSOURCED]`, (3) renders themed email-safe HTML, and (4) emits X as **twitter-text-weighted `x.com/intent/post` links** so it never needs the X API.
 
-## Constraints folded into Phase 1
+The host LLM writes. The server structures, validates, renders, and links. It **pairs with** Kit / beehiiv / Ghost / Typefully / Buffer / Postiz downstream instead of replacing them.
+
+## Owner steering that this repo follows
+
+These beat the researcher’s optional “collapse to 10 tools / never send” pack when they conflict.
+
+| Steering | This repo |
+|---|---|
+| MIT; TypeScript; `@modelcontextprotocol/sdk`; stdio; Node 20+ | Yes |
+| Server **never calls an LLM**; no MCP sampling (spec 2026-07-28 deprecates it) | Yes. Tools are deterministic + golden-file tested |
+| Codex has **no prompts / elicitation** — every setup step is a tool | Yes. Prompts exist but are optional |
+| Wizard, seed bank, research brief, versioned drafts, feedback → voice | Yes (richer than the 10-tool pack) |
+| Source ids `S1`, `S2`, …; SSRF on fetch; **no RSS** in v0.1 | Yes |
+| Fact-check: number / `%` / `$` / date without `[S#]` → `[UNSOURCED]`; newsletter **render blocked** unless `draft: true` / `--draft` | Yes |
+| Email: table layout, `bgcolor` on every cell, Gmail ~102 KB clip warning | Yes (inline styles; no MJML) |
+| X: pin `twitter-text`, numbered **separate** intent links | Yes. [X web intent](https://developer.x.com/en/docs/x-for-websites/tweet-button/guides/web-intent) documents `twitter.com/intent/tweet`; `x.com/intent/post` is the current equivalent |
+| Themes as YAML: `default`, **`babaganoush`**, `minimal-plain` | Yes. Palette is the owner’s: charcoal `#12140F`, olive `#A9B455`, gold `#D9B77A`, cream `#F2E8D8` (not the researcher’s sample `#14191F` / `#EFDDB8` draft) |
+| Instagram + LinkedIn copy packs in Phase 1; no native social APIs | Yes. PNG slides Phase 2 |
+| Optional send: **Resend + SMTP**, env keys only, `confirm: true` | Yes. Researcher pack said “no secrets / never sends”; owner overrode with confirm-gated adapters. Kit/beehiiv/Ghost remain Phase 2 |
+| `schemas/issue.schema.json`; CI on Node 20 and 22; MCP client test hits every tool | Yes |
+| **Postiz is AGPL** — do not copy code | Yes |
+| **`content-repurposer-mcp` GitHub 404** — do not cite as working | Yes |
+| Smithery closed to new external servers (31 Oct 2026) | `server.json` + `mcpName` ready; **npm and registry unpublished** |
+| Babaganoush / cooking examples; no finance-fund | Yes |
+
+**Not adopted from the 10-tool pack:** collapsing to `setup_workspace` + `ingest_sources` + `create_brief` + `validate_issue` + `render_issue` + `draft_x_posts` only. Owner asked for a usable content engine (wizard steps, seed kill/revive, four channels, feedback loop, confirm-gated send). Mapping:
+
+| Researcher pack tool | Where it lives here |
+|---|---|
+| `setup_workspace` | `apply_theme` + `setup_*` + `get_setup` writing `./content-engine/` |
+| `list_themes` / `get_theme` | `list_themes`, `apply_theme`; YAML is on disk under `themes/` |
+| `ingest_sources` | `attach_source` (`S#`, optional fetch, SSRF). No RSS |
+| `create_brief` | `build_research_brief` (skeleton; agent fills) |
+| `validate_issue` | `fact_check_draft` + `mark_draft_ready` |
+| `render_issue` | `render_outputs` (newsletter HTML/md, X, IG, LinkedIn, `issue.json`) |
+| `draft_x_posts` | `render_outputs` channel `x` via `twitter-text` |
+| `save_issue` / `get_state` | versioned `drafts/` + `out/` + `get_calendar` / `get_cadence_status` |
+
+MCP **resources** (`theme://`, `schema://issue`) and `juice` / Readability were suggested, not steered. v0.1 keeps tools-only + a light HTML fetch. Add resources in v0.2 if a client needs them.
+
+## Constraints (protocol, platforms, distribution)
 
 | Constraint | Source | Implication |
 |---|---|---|
-| MCP spec **2026-07-28** deprecates **sampling** | [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) | This server never asks the host to sample. Research briefs, voice guides, and draft kits are deterministic templates. The **user's agent writes**. |
-| **Codex does not support MCP prompts or elicitation** | Client capability matrix (Codex config is tools-only stdio) | Every setup step is a **plain tool**. Prompts exist as optional guided flows for clients that list them; nothing requires them. |
-| **Smithery** stopped accepting new external servers and shut down its proxy / `run.tools` URLs on **31 Oct 2026** | [The future of Smithery](https://www.smithery.ai/future); [registry migration notes](https://github.com/jin-1119/plato-mcp/issues/157) | Distribute via **`npx` + official MCP Registry `server.json`**. Do not depend on Smithery hosting. |
-| Instagram / LinkedIn / Threads / TikTok **API posting needs app review**; **X API posting is paid** | Platform developer policies | Phase 1 ships **copy packs and intent links only**. No auto-publish to social networks. |
-| **beehiiv free cannot send via API** | [beehiiv MCP help](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp); [newsletter MCP comparison](https://www.newsletterapi.io/blog/newsletter-mcp-servers-compared) | Phase 1 send adapters are **Resend** (free tier) and **SMTP** (Gmail app passwords). Kit / beehiiv / Buttondown / Ghost are Phase 2. |
-| Server **never calls an LLM** in v0.1 | Design | Tools are deterministic and tested with golden files. |
-| Source fetch **SSRF** | Design | Block private/loopback; ids `S1`, `S2`, …. No RSS in v0.1. |
-| Fact-check + render gate | Design | Flag number / `%` / `$` / date without `[S#]`. Newsletter render blocked unless `draft: true`. |
-| X weighted length | `twitter-text` | URLs count 23; emoji/CJK weighted; numbered separate intent links. |
-| **Postiz is AGPL-3.0** | [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app) | Cite as a scheduler to *hand off to*. **Do not copy its code.** |
-| `content-repurposer-mcp` registry listing | Registry scan | **Dead repo — do not cite as a working prior art.** |
-| Themes as YAML | Design | Ship `default`, `babaganoush` (Greek taverna), `minimal-plain`. |
-| Official MCP Registry | [quickstart](https://modelcontextprotocol.io/registry/quickstart) | `server.json` + `mcpName`. Description ≤ 100 chars. npm/registry publish are **later**. |
+| MCP spec **2026-07-28** deprecates **sampling** | [MCP specification](https://modelcontextprotocol.io/specification/2026-07-28); older sampling chapter still at [2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling) | Never sample. Host writes |
+| Codex: no prompts / elicitation | Client capability notes | Setup = tools |
+| Smithery proxy / new external servers ended **31 Oct 2026** | [The future of Smithery](https://www.smithery.ai/future) | Official [MCP Registry](https://modelcontextprotocol.io/registry/quickstart) `server.json` + `npx`. Not submitted yet |
+| IG / LinkedIn / Threads / TikTok posting needs app review; X API posting is paid | Platform policies; [EnesCinr/twitter-mcp](https://github.com/EnesCinr/twitter-mcp) needs keys and **posts** | Copy packs + [intent links](https://developer.x.com/en/docs/x-for-websites/tweet-button/guides/web-intent) |
+| beehiiv free is read-only; sending stays human / plan-gated | [beehiiv MCP help](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp), [MCP v2 post](https://product.beehiiv.com/p/beehiiv-mcp-v2) | Phase 1 send = Resend + SMTP |
+| Kit MCP drafts; official brief: MCP does not send | [Kit MCP](https://developers.kit.com/mcp/kit-mcp) | Phase 2 |
+| Postiz **AGPL-3.0** | [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app) | Hand off; never copy |
+| `content-repurposer` GitHub 404 | [registry.npmjs.org/content-repurposer-mcp](https://registry.npmjs.org/content-repurposer-mcp); `github.com/As-The-Geek-Learns/content-repurposer` **404** | Dead listing |
+| `twitter-text` last upstream push Apr 2024; config v3 still the weighted-length source | [twitter/twitter-text](https://github.com/twitter/twitter-text), [config/v3.json](https://raw.githubusercontent.com/twitter/twitter-text/master/config/v3.json) | Pin `3.1.0` (Apache-2.0) |
 
-## Competitive table
+## Comparison table (24 + adjacent)
 
-| Project | What it is | License / access | How it relates |
-|---|---|---|---|
-| [Postiz](https://github.com/gitroomhq/postiz-app) ([MCP docs](https://docs.postiz.com/mcp/introduction), [MCP product](https://postiz.com/mcp)) | Open-source self-hosted social scheduler with AI assists, analytics, team collab, and a remote MCP (`schedulePostTool`, image/video/clip tools). Positions as Buffer / Hypefury alternative. | **AGPL-3.0** self-host; hosted cloud | **Publish/schedule** engine. Phase 2: hand off copy packs to Postiz MCP. **We do not copy Postiz source.** |
-| [Buffer MCP](https://developers.buffer.com/guides/integrations/mcp.html) | Remote MCP at `https://mcp.buffer.com/mcp`. Ideas, drafts, queue, `create_post` across Instagram, Facebook, X, LinkedIn, Pinterest, YouTube, TikTok, Threads, Bluesky, Substack, etc. | Hosted product | **Publish/schedule**. Phase 2 hand-off target. Does not own voice, fact-check, or newsletter HTML. |
-| [Typefully MCP](https://support.typefully.com/en/articles/13128440-typefully-mcp-server) (`https://mcp.typefully.com/mcp`) | Writing-first scheduler for X, LinkedIn, Threads, Bluesky, Mastodon, Instagram. Drafts, threads, queue, comments, media, AI rewrite in the product. | Hosted product | Best-in-class **thread editor + queue**. Phase 2 hand-off. |
-| [Hypefury](https://hypefury.com) | X-centric scheduler: threads, queues, engagement automation, cross-post. | Hosted | Feature set to match for **X thread split + cadence**, not a protocol to integrate. |
-| [Mixpost](https://github.com/inovector/mixpost) | Self-hosted Laravel scheduler; Lite is MIT (Facebook Pages, Mastodon, X); Pro unlocks Instagram/LinkedIn/etc. Calendar, media library, per-network versions. | MIT (Lite) | Scheduler, not a writing engine. |
-| [n8n content workflows](https://n8n.io/workflows/) | Graph automations: e.g. [weekly SEO blog + social](https://n8n.io/workflows/22365-draft-weekly-seo-blogs-and-social-posts-with-openai-google-sheets-and-wordpress/), [AI newsletter + Tavily + Gmail](https://n8n.io/workflows/14412-generate-and-send-ai-newsletters-with-openai-tavily-google-sheets-and-gmail/), [GPT-4 + Buffer from Sheets](https://n8n.io/workflows/7517-generate-and-schedule-social-media-content-with-gpt-4-and-buffer-from-google-sheets/). Some approval-gate; many auto-send. | Fair-code / hosted | Recipes for **cadence + approval**. We keep approval as MCP tools, not a daemon. |
-| [GPT-Researcher](https://github.com/assafelovic/gpt-researcher) | Autonomous deep-research agent: planner + parallel retrieval + cited reports. | Apache-2.0 | **Does the research.** We do not. Phase 1 emits a research **brief** the user's agent (or GPTR) executes. |
-| [Stanford STORM](https://github.com/stanford-oval/storm) ([project](https://storm-project.stanford.edu/research/storm/)) | Outline-first Wikipedia-like articles via multi-perspective question asking + retrieval. | MIT (`knowledge-storm`) | Same split: they run a research swarm; we only **structure the questions**. |
-| [Lately](https://www.lately.ai/how-it-works) | Hosted social AI: Voice Model from analytics + **thumbs up/down/edits**, then atomizes long-form into channel posts and schedules. | Hosted | Closest **feedback → voice** analogue. We persist revision comments into `voice.md` instead of training a model. |
-| [Easel (ZJU-REAL)](https://github.com/ZJU-REAL/Easel) | Open-source social agent: discover → plan → produce (copy/image/video) → publish via browser automation → attribute back to a profile. MCP/skills around an agent runtime. | Apache-2.0 | Full **multi-agent workbench**. We stay single-agent + files, Western channels, no browser login publishing. |
-| [claude-repurpose](https://github.com/AgriciDaniel/claude-repurpose) | Claude Code engine: one asset → 10+ platform packs (X thread, IG carousel + reel, LinkedIn carousel script, newsletter excerpt, …) via parallel agents. | MIT | Repurpose **from finished long-form**. We start from a **2–5 line seed** and keep a source/fact-check loop. |
-| [langchain-ai/social-media-agent](https://github.com/langchain-ai/social-media-agent) | LangGraph agent: URL in → X & LinkedIn posts, human-in-the-loop auth/edit/accept, optional Slack. | MIT | HITL publish agent. We store HITL as **tools + calendar state**, and add newsletter HTML. |
-| [Kit MCP](https://developers.kit.com/mcp/kit-mcp) (`https://app.kit.com/mcp`) | Official remote MCP for a Kit account: subscribers, tags, sequences, **draft broadcasts**. Paid plans. Official docs: MCP **does not send**; it returns a `confirm_url` for the creator. | Hosted, paid | Phase 2 newsletter adapter. Do not treat as a Phase 1 send path. |
-| [beehiiv MCP](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp) (`https://mcp.beehiiv.com/mcp`) | Official hosted MCP, OAuth. Read on free; write from Lite. **Publishing/sending stay human** in beehiiv. | Hosted | Phase 2. Free cannot send via API. |
-| [Ghost](https://forum.ghost.org/t/proposal-first-party-mcp-model-context-protocol-server-for-the-admin-api/62774) | No first-party MCP found. Community servers wrap Admin API (`MFYDev/ghost-mcp`). | Community | Phase 2 / Later. |
-| [Buttondown](https://www.newsletterapi.io/blog/newsletter-mcp-servers-compared) | No first-party MCP found. Community API-key servers exist. | Community | Phase 2. |
-| [SocialNeuron MCP](https://github.com/socialneuron/mcp-server) | Hosted “93 tools” content + schedule + analytics MCP. | Hosted | Cloud content OS. Opposite of our local-files promise. |
-| [AI-Marketing-OS-MCP](https://github.com/thebuildercompany/ai-marketing-os-mcp) | Remote MCP: RSS research, save multi-channel drafts, scaffolded X/LinkedIn/beehiiv publish. | Project | Similar shape, remote + Mongo. We are stdio + a folder. |
+Stars · last push: GitHub API, 13 Nov 2026, Cursor-leg researcher. Licenses from each repo’s LICENSE / npm page.
 
-## Capability matrix
+| # | Name | Type | License · stars · last push | Surface | Vs. us |
+|---|---|---|---|---|---|
+| 1 | [beehiiv MCP](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp) (`mcp.beehiiv.com/mcp`) | Official hosted newsletter MCP, OAuth | Proprietary | Posts, templates, tags, segments, automations, assets, RSS, stats. Free read-only; Lite drafts; Pro sends. `get_post_content` used for voice | Platform CRUD. No citation check, no theme renderer, no X pack |
+| 2 | [Kit MCP](https://developers.kit.com/mcp/kit-mcp) (`app.kit.com/mcp`) | Official, OAuth, paid plans, 120 req/min | Proprietary | v4-shaped: subscribers, tags, segments, sequences, **broadcast drafts** | CRUD. Does not write, render, or validate |
+| 3 | [dancumberland/kit-mcp](https://github.com/dancumberland/kit-mcp) | Community Kit MCP | MIT · 2★ · 2026-03 | 13 composite tools / ~45 actions | Same CRUD gap; tiny |
+| 4 | [conorbronsdon/substack-mcp](https://github.com/conorbronsdon/substack-mcp) | Community (Substack has no first-party write MCP) | MIT · 48★ · 2026-11-12 | Drafts, Notes, analytics, subscribers. Draft-only by design; tool annotations for side effects | Session-cookie login. Notes can publish instantly. Worth copying **annotations**, not auth |
+| 5 | [TryGhost/ghst](https://github.com/TryGhost/ghst) (`ghst mcp stdio`) | **First-party** Ghost MCP, pre-1.0 | MIT · 37★ · 2026-11-13 | Posts, pages, tags, members, newsletters, tiers, webhooks | Official CRUD. No generation. (Earlier notes that “Ghost has no first-party MCP” are outdated.) |
+| 6 | [MFYDev/ghost-mcp](https://github.com/MFYDev/ghost-mcp) | Community Ghost MCP | MIT · 246★ · 2026-04 | Browse/create/edit posts, members, newsletters | Mature CRUD |
+| 7 | [Mailchimp Transactional MCP](https://mailchimp.com/developer/transactional/guides/how-to-use-mailchimps-transactional-messaging-mcp/) | Official Mandrill MCP | Proprietary | `build_template`, `call_api`, `diagnose_failed_send` (9 tools) | Transactional only. Marketing API: community e.g. [damientilman/mailchimp-mcp-server](https://github.com/damientilman/mailchimp-mcp-server) (author claims a huge tool list — treat as hype) |
+| 8 | [rhnvrm/listmonk-mcp](https://github.com/rhnvrm/listmonk-mcp) | Self-hosted newsletter MCP | MIT · 44★ · 2026-01 | 18 tools: subscribers, lists, campaigns, templates | Open stack, CRUD only |
+| 9 | [Typefully MCP](https://support.typefully.com/en/articles/13128440-typefully-mcp-server) (`mcp.typefully.com/mcp`) + [typefully/agent-skills](https://github.com/typefully/agent-skills) | Official social MCP + MIT skills repo | Proprietary MCP · skills MIT · 65★ | Drafts, threads, queue, media, tags on X, LinkedIn, Threads, Bluesky, Mastodon | Best X drafting UX. Needs account. No newsletter HTML, no sources |
+| 10 | [Buffer MCP](https://developers.buffer.com/guides/integrations/mcp.html) (`mcp.buffer.com/mcp`) | Official social MCP | Proprietary; free 150 req / 15 min | Channels, queue, `create_post` (can publish now), ideas, analytics. Returns remaining quota; write tools flagged | **Publishes.** Phase 2 hand-off |
+| 11 | [EnesCinr/twitter-mcp](https://github.com/EnesCinr/twitter-mcp) | X API MCP | MIT · 408★ · 2026-11-03 | `post_tweet`, `search_tweets`, `get_home_timeline` | Needs X keys; timeline is paid. **Posts directly** — opposite of intent links |
+| 12 | [Postiz](https://github.com/gitroomhq/postiz-app) ([MCP](https://postiz.com/mcp), [docs](https://docs.postiz.com/mcp/introduction)) | OSS scheduler + MCP | **AGPL-3.0** · 41.5k★ · 2026-11-13 | ~30 networks via MCP / CLI | Scheduler, not a writer. **Do not copy source** |
+| 13 | [agentic-repurpose](https://registry.npmjs.org/agentic-repurpose) (`io.github.pooriaarab/agentic-repurpose`) | Content-gen MCP | MIT (npm) · v0.1.1 · 2026-10 | Two tools: `repurpose`, `score_variant`. Live post needs `approved:true` | Approval-in-schema is good. Tiny: no newsletter, themes, citations |
+| 14 | [content-repurposer-mcp](https://registry.npmjs.org/content-repurposer-mcp) (`io.github.As-The-Geek-Learns/content-repurposer`) | Registry listing | MIT (npm) · v1.0.2 · 2026-04 | Threads, LinkedIn, Substack Notes, email, video script **on paper** | **GitHub 404.** Do not cite as working |
+| 15 | [NewsletterProAI](https://newsletterproai.eliteaiempire.com/) (`com.eliteaiempire/newsletterproai`) | Hosted content-gen MCP | Proprietary; no repo | “Drafts a real newsletter issue” + test send | Closed, sends, unverifiable copy |
+| 16 | [AgriciDaniel/claude-repurpose](https://github.com/AgriciDaniel/claude-repurpose) | Claude Code skill, not MCP | MIT · 175★ · 2026-04 | 1 asset → 10+ platform packs | Demand signal. Prompt-only, no validation/render |
+| 17 | [langchain-ai/social-media-agent](https://github.com/langchain-ai/social-media-agent) | LangGraph engine | MIT · 3.0k★ · 2026-11-11 | URL → relevance → post → HITL → schedule | HITL graph to learn from. Not MCP; needs OAuth. No newsletter |
+| 18 | [assafelovic/gpt-researcher](https://github.com/assafelovic/gpt-researcher) + [gptr-mcp](https://github.com/assafelovic/gptr-mcp) | Research engine + MCP | Apache-2.0 · 30.7k★ / MIT · 378★ | Deep research with citations | Citation pipeline is the model for `attach_source`. Writes reports, needs search keys |
+| 19 | [n8n #14412](https://n8n.io/workflows/14412-generate-and-send-ai-newsletters-with-openai-tavily-google-sheets-and-gmail/) · [#7264 RSS→draft](https://n8n.io/workflows/7264-generate-ai-summarized-newsletter-drafts-from-rss-feeds-with-gpt-4-and-gmail/) · [#22365](https://n8n.io/workflows/22365-draft-weekly-seo-blogs-and-social-posts-with-openai-google-sheets-and-wordpress/) · [#7517](https://n8n.io/workflows/7517-generate-and-schedule-social-media-content-with-gpt-4-and-buffer-from-google-sheets/) | No-code pipelines | n8n Sustainable Use License | RSS / Tavily / Sheets → LLM → HTML → Gmail/Buffer | Pipeline shape. HTML often untested; many send by default. No claim check |
+| 20 | [giftedunicorn/ai-news-bot](https://github.com/giftedunicorn/ai-news-bot), [samestrin/llm-newsletter-generator](https://github.com/samestrin/llm-newsletter-generator) | OSS newsletter generators | GPL-3.0 · 28★ / MIT · 15★ | RSS → LLM → HTML email | Not MCP. Single-topic. GPL on the first |
+| 21 | [rasa.io](https://rasa.io) | Commercial curation | Custom contracts | Per-reader personalized newsletters | Closed; associations |
+| 22 | [Letterdrop](https://letterdrop.com) | Commercial B2B engine | SaaS (third-party pricing pages exist; we don’t restated figures) | Repurposing, LinkedIn, SEO, approvals | Enterprise; closed |
+| 23 | [Typefully](https://typefully.com) / [Hypefury](https://hypefury.com) / [Tweet Hunter](https://tweethunter.io) / [Taplio](https://taplio.com) | Commercial X/LinkedIn writers | SaaS | Threads, queues, AI rewrite | Closed; posting permissions. Taplio is LinkedIn-first; X is Tweet Hunter / Typefully / Hypefury. No newsletter engine |
+| 24 | [Jasper](https://www.jasper.ai) / [Copy.ai](https://www.copy.ai) | General content engines | SaaS | Brand-voice profiles (the idea behind theme YAML) | Closed; not MCP-first; no citation enforcement |
 
-Legend for **content-engine-mcp**: **P1** = Phase 1 (this repo), **P2** = Phase 2, **L** = Later. For others: **Y** = documented, **P** = partial / adjacent, **—** = not the product.
+**Also in our scan (not in the 24):** [Stanford STORM](https://github.com/stanford-oval/storm) ([project](https://storm-project.stanford.edu/research/storm/)) — outline-first research swarm; [Lately](https://www.lately.ai/how-it-works) — voice model from edits; [Easel (ZJU-REAL)](https://github.com/ZJU-REAL/Easel) — multi-agent social workbench; [Mixpost](https://github.com/inovector/mixpost) — self-hosted scheduler.
 
-| Capability | content-engine-mcp | Postiz | Buffer MCP | Typefully MCP | Mixpost | GPT-R / STORM | Lately | Easel | claude-repurpose | LC social-media-agent | Kit / beehiiv MCP | n8n recipes |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Runs inside the user's existing agent (no extra swarm) | **P1** | — | Y | Y | — | — | — | P (own agent) | P (Claude Code agents) | — | Y | — |
-| Tools-only setup (Codex-safe; no elicitation) | **P1** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
-| Local markdown/yaml project (no required cloud) | **P1** | self-host | — | — | self-host | Y | — | Y | Y | Y | — | Sheets/DB |
-| Vision, audience, brand, cadence, sourcing files | **P1** | P | P (ideas) | P | P | — | Voice Model | Account profile | — | — | — | CONFIG node |
-| Voice guide from adjectives + pasted samples | **P1** | P | — | P (product AI) | — | — | Y | Y | — | — | — | prompt text |
-| Learn standing prefs from approve / edit / kill | **P1** | — | — | comments | — | — | **Y** (edits & thumbs) | attribution loop | — | HITL edits | — | — |
-| Seed bank (capture, classify, search, kill/revive) | **P1** | P | ideas | drafts | — | query | ingest long-form | topics | input URL/file | URL in | — | sheet rows |
-| Structured research brief (questions/angles/sources) | **P1** | — | — | — | — | **Y** (executes) | — | discover | atomize existing | fetch URL | — | Tavily node |
-| Agent-owned web research (server does not fetch the web) | **P1** | n/a | n/a | n/a | n/a | they fetch | they fetch | they fetch | they fetch | they fetch | n/a | they fetch |
-| Attach sources with URLs; drafts cite them | **P1** | — | — | — | — | citations | — | P | atoms include stats | — | — | varies |
-| Deterministic unsourced-claim flags | **P1** | — | — | — | — | P | — | quality-gate | — | — | — | — |
-| Draft kits + versioned drafts per channel | **P1** | versions | drafts | drafts | per-network | report | posts | outputs/ | many packs | 2 channels | broadcasts | sheet tabs |
-| Newsletter email-safe HTML (table, inline CSS, themes) | **P1** | — | — | — | — | — | — | — | excerpt | — | in product | HTML node |
-| X thread split + `x.com/intent/post` handoff | **P1** | publish | publish | publish | publish | — | schedule | Playwright X | thread files | publish | — | Buffer node |
-| Instagram caption + carousel copy (+ optional Reel script) | **P1** | publish | publish | P | Pro | — | Y | cards | carousel + reel | — | — | Y |
-| LinkedIn post copy pack | **P1** | publish | publish | publish | Pro | — | Y | — | post + PDF script | publish | — | Y |
-| Native social publish (IG/LI/X/TikTok APIs) | **P2** via Buffer/Typefully/Postiz MCP | **Y** | **Y** | **Y** | Y | — | Y | browser | — | Y | — | Y |
-| Newsletter send: Resend + SMTP, explicit `confirm` | **P1** | email notif | — | — | — | — | — | — | — | — | human send | Gmail node |
-| Kit / beehiiv / Buttondown / Ghost adapters | **P2** | — | Substack | Substack Notes | — | — | — | WeChat/etc. | — | — | **Y** | — |
-| PNG 1080×1350 carousel slides | **P2** | media | assets | media | library | — | — | **Y** | image prompts | images | — | DALL·E |
-| Self-scheduling daemon | **L** (docs only: host cron) | **Y** | **Y** | **Y** | **Y** | — | Y | queue | 7-day plan file | Y | product | **Y** |
-| Analytics → next idea | **L** | Y | Y | Y | Y | — | **Y** | **Y** | — | — | product | — |
-| MCP sampling / server-side LLM | **never** (spec-deprecated; out of scope) | product AI | — | product AI | — | **Y** | **Y** | **Y** | **Y** | **Y** | — | OpenAI node |
+**Hype flags (researcher):** #14 repo gone; #15 no repo; “most complete” claims on #3 and community Mailchimp are authors’ own; Taplio ≠ X.
 
-## Channel posting reality (why Phase 1 is copy packs)
+## Capability matrix (Phase 1 / 2 / Later)
 
-- **X:** posting through the API is a paid product. Phase 1 emits a 280-character split and an [intent URL](https://x.com/intent/post?text=).
-- **Instagram, LinkedIn, Threads, TikTok:** official posting APIs require a developer app and (typically) app review. Phase 1 does not ship those credentials flows.
-- **Phase 2 (optional):** after the user approves a pack, the same agent can call **Buffer MCP**, **Typefully MCP**, or **Postiz MCP** — they already hold the OAuth connections.
+Legend: **P1** this repo, **P2** / **L** roadmap. Others: **Y** documented, **P** partial, **—** not the product.
 
-## Newsletter sending reality
+| Capability | us | Postiz | Buffer | Typefully | GPT-R / gptr-mcp | Lately | claude-repurpose | LC social-media-agent | Kit / beehiiv | Ghost ghst | n8n |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Runs in the user’s existing agent | **P1** | — | Y | Y | — | — | P | — | Y | Y | — |
+| Tools-only setup (Codex) | **P1** | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a | n/a |
+| Local files, no required cloud | **P1** | self-host | — | — | Y | — | Y | Y | — | self-host | Sheets |
+| YAML theme + voice + banned words | **P1** | P | — | P | — | Voice Model | — | style file | — | — | prompt |
+| Learn prefs from approve / edit / kill | **P1** | — | — | comments | — | **Y** | — | HITL | — | — | — |
+| Seed bank | **P1** | P | ideas | drafts | query | long-form | input | URL | — | — | rows |
+| Research **brief** (agent fetches) | **P1** | — | — | — | they fetch | — | atomize | fetch | — | — | Tavily |
+| `S#` sources + SSRF | **P1** | — | — | — | citations | — | P | — | — | — | varies |
+| Unsourced number/%/$/date flags | **P1** | — | — | — | P | — | — | — | — | — | — |
+| Email-safe HTML + 102 KB warn | **P1** | — | — | — | — | — | excerpt | — | in product | in product | HTML node |
+| twitter-text + intent links (never posts) | **P1** | publish | publish | publish | — | schedule | files | publish | — | — | Buffer |
+| IG / LinkedIn **copy packs** | **P1** | publish | publish | publish | — | Y | Y | LI publish | — | — | Y |
+| Confirm-gated Resend/SMTP | **P1** | notif | — | — | — | — | — | — | human send | — | Gmail |
+| Native social publish | **P2** hand-off | **Y** | **Y** | **Y** | — | Y | — | Y | — | — | Y |
+| Kit / beehiiv / Ghost adapters | **P2** | — | Substack | Notes | — | — | — | — | **Y** | **Y** | — |
+| PNG slides / RSS / sampling | **P2 / never** | media | assets | media | **Y** LLM | — | prompts | — | RSS in beehiiv | — | RSS |
 
-- **Kit MCP** (official): draft broadcasts; sending is a human confirmation in Kit ([developer brief](https://developers.kit.com/mcp/kit-mcp)).
-- **beehiiv MCP:** available without a waitlist; write access and sending are plan-gated, and beehiiv keeps publish/send as human actions. Free is not an API send path.
-- **Ghost / Buttondown:** community MCP only, API keys.
-- **Phase 1:** `send_newsletter` with `confirm: true`, adapters **Resend** and **SMTP**, plus send-test-to-self.
+## Channel and send reality
 
-## Distribution
+- **X:** paid API to post. We emit weighted 280-char chunks and [web intents](https://developer.x.com/en/docs/x-for-websites/tweet-button/guides/web-intent). Email HTML practices: [caniemail](https://www.caniemail.com).
+- **IG / LinkedIn / Threads / TikTok:** app review. Copy packs only. LinkedIn `linkedin.com/sharing/share-offsite` is a Phase 2 question, not v0.1.
+- **Phase 2 publish path:** Buffer MCP, Typefully MCP, or Postiz MCP (OAuth already theirs).
+- **Kit:** drafts + `confirm_url`. **beehiiv:** free read-only; send is human / paid. **Ghost:** `ghst` first-party pre-1.0, plus community `ghost-mcp`. **listmonk** if self-hosting. None of these are v0.1 send adapters.
 
-Smithery is no longer an onboarding path for new external servers (proxy shutdown 31 Oct 2026). This repo ships:
+## Distribution (ready, unpublished)
 
-1. `npx content-engine-mcp` / `node dist/index.js` over **stdio**.
-2. [`server.json`](../server.json) for the [official MCP Registry](https://modelcontextprotocol.io/registry/quickstart) (`mcpName` in `package.json` must match `server.json.name` when you publish).
+Smithery is not an onboarding path. This repo already has:
 
-Update the `io.github.content-engine/…` namespace to your GitHub user/org before `mcp-publisher publish`.
+1. `package.json` `name` `content-engine-mcp`, `bin`, `mcpName` `io.github.content-engine/content-engine-mcp`
+2. [`server.json`](../server.json) — schema `2025-12-11`, description **84 characters** (limit 100), `packages[].transport.type: stdio`
+3. README snippets for Claude Desktop, Claude Code, Cursor, Codex
+
+**Not done (intentionally):** `npm publish`, `mcp-publisher login` / `publish`. Change the `io.github.content-engine/…` namespace to the real GitHub user/org first. Device-code registry login is the owner’s step.
 
 ## Sources
 
-- Postiz: [GitHub](https://github.com/gitroomhq/postiz-app), [MCP introduction](https://docs.postiz.com/mcp/introduction), [postiz.com/mcp](https://postiz.com/mcp)
-- Buffer: [MCP guide](https://developers.buffer.com/guides/integrations/mcp.html)
-- Typefully: [MCP help](https://support.typefully.com/en/articles/13128440-typefully-mcp-server), [mcp.typefully.com](https://mcp.typefully.com/)
-- Mixpost / open-source schedulers: [Unvendored Buffer alternatives](https://unvendored.com/alternatives/buffer)
-- GPT-Researcher: [GitHub](https://github.com/assafelovic/gpt-researcher)
-- STORM: [GitHub](https://github.com/stanford-oval/storm), [NAACL 2024 project page](https://storm-project.stanford.edu/research/storm/)
-- Lately: [How it works](https://www.lately.ai/how-it-works)
-- Easel: [ZJU-REAL/Easel](https://github.com/ZJU-REAL/Easel)
-- claude-repurpose: [AgriciDaniel/claude-repurpose](https://github.com/AgriciDaniel/claude-repurpose)
-- LangChain social-media-agent: [langchain-ai/social-media-agent](https://github.com/langchain-ai/social-media-agent)
-- Kit MCP: [developers.kit.com/mcp/kit-mcp](https://developers.kit.com/mcp/kit-mcp)
-- beehiiv MCP: [help article](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp)
-- Newsletter MCP comparison (Kit / beehiiv / Ghost / Buttondown / Substack): [newsletterapi.io](https://www.newsletterapi.io/blog/newsletter-mcp-servers-compared)
-- MCP Registry: [quickstart](https://modelcontextprotocol.io/registry/quickstart)
-- Smithery shutdown: [smithery.ai/future](https://www.smithery.ai/future)
-- n8n templates linked in the table above
-- MCP TypeScript SDK: [v1 `@modelcontextprotocol/sdk`](https://www.npmjs.com/package/@modelcontextprotocol/sdk) (this repo); v2 is `@modelcontextprotocol/server`
+Prior-art pack (curl 200 on 13 Nov 2026 unless noted) plus our scan:
+
+- MCP: [registry quickstart](https://modelcontextprotocol.io/registry/quickstart) · [registry API](https://registry.modelcontextprotocol.io) · [registry repo](https://github.com/modelcontextprotocol/registry) · [reference servers](https://github.com/modelcontextprotocol/servers) · [spec 2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25) · [spec 2026-07-28](https://modelcontextprotocol.io/specification/2026-07-28) · [sampling 2025-06-18](https://modelcontextprotocol.io/specification/2025-06-18/client/sampling) · [Inspector](https://modelcontextprotocol.io/docs/tools/inspector) · [TS SDK](https://github.com/modelcontextprotocol/typescript-sdk) · [Smithery future](https://www.smithery.ai/future)
+- Platforms: [beehiiv MCP](https://www.beehiiv.com/support/article/39255979546263-getting-started-with-the-beehiiv-mcp) · [beehiiv MCP v2](https://product.beehiiv.com/p/beehiiv-mcp-v2) · [Kit MCP](https://developers.kit.com/mcp/kit-mcp) · [Typefully MCP](https://support.typefully.com/en/articles/13128440-typefully-mcp-server) · [Buffer MCP](https://developers.buffer.com/guides/integrations/mcp.html) · [Mailchimp Transactional MCP](https://mailchimp.com/developer/transactional/guides/how-to-use-mailchimps-transactional-messaging-mcp/) · [Postiz MCP](https://postiz.com/mcp)
+- Repos: every GitHub link in the table, plus [twitter-text](https://github.com/twitter/twitter-text) · [v3 config](https://raw.githubusercontent.com/twitter/twitter-text/master/config/v3.json) · [MJML](https://github.com/mjmlio/mjml) (considered, skipped)
+- X: [web intent](https://developer.x.com/en/docs/x-for-websites/tweet-button/guides/web-intent)
+- Email: [caniemail](https://www.caniemail.com)
+- Commercial: [rasa.io](https://rasa.io) · [Letterdrop](https://letterdrop.com) · [Typefully](https://typefully.com) · [Hypefury](https://hypefury.com) · [Tweet Hunter](https://tweethunter.io) · [Taplio](https://taplio.com) · [Jasper](https://www.jasper.ai) · [Copy.ai](https://www.copy.ai)
+- Unreachable: `github.com/As-The-Geek-Learns/content-repurposer` (404). npmjs.com HTML often 403 to curl; npm rows link to `registry.npmjs.org`. `modelcontextprotocol.io/clients` timed out for the researcher (sampling matrix unverified from that page).

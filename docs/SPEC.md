@@ -81,8 +81,18 @@ Optional prompts (clients that support them): `setup_wizard`, `develop_idea`.
 - Analytics → next seed.
 - Optional RSS (explicitly out of v0.1).
 
+## Design check (prior-art pack vs this spec)
+
+The Cursor-leg 24-row pack is folded into `docs/RESEARCH.md`. We took its **wedge** (CRUD MCPs vs a deterministic toolkit) and its **mechanics** (`S#`, SSRF, twitter-text, email `bgcolor`, 102 KB, YAML themes, issue schema, registry `server.json`).
+
+We did **not** collapse to that pack’s 10-tool surface or its “never send / no secrets” default. Owner steering keeps wizard tools, a seed bank, four channel packs, a feedback loop, and confirm-gated Resend/SMTP. Ghost **does** now have first-party `TryGhost/ghst` (pre-1.0) — still Phase 2.
+
+npm and the MCP Registry stay **ready and unpublished**.
+
 ## Later
 
+- MCP resources (`theme://`, `schema://issue`) if a client needs them; tools already cover the same files.
 - A scheduler inside the server.
 - Multi-writer teams.
 - Sampling, if the spec ever restores a safe form of it (not planned).
+- LinkedIn share-offsite intent (open question in the prior-art pack).
