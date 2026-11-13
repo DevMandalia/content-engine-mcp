@@ -1,0 +1,14 @@
+src
+test
+scripts
+docs
+.git
+.github
+content-engine
+tmp
+agent-tools
+*.tsbuildinfo
+vitest.config.ts
+tsconfig.json
+.env
+.env.*

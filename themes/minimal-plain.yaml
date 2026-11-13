@@ -1,0 +1,56 @@
+name: minimal-plain
+description: Almost no decoration. System fonts, black and white, three short sections.
+mood: spare, quiet, literal
+theme_mode: light
+palettes:
+  light:
+    background: "#FFFFFF"
+    foreground: "#000000"
+    accent: "#000000"
+    muted: "#555555"
+  dark:
+    background: "#000000"
+    foreground: "#FFFFFF"
+    accent: "#FFFFFF"
+    muted: "#BBBBBB"
+fallback_fonts:
+  - system-ui
+  - -apple-system
+  - BlinkMacSystemFont
+  - "Segoe UI"
+  - sans-serif
+word_limits:
+  newsletter: 600
+  x_post: 280
+  instagram_caption: 1200
+  linkedin: 800
+  opener: 40
+voice:
+  adjectives:
+    - plain
+    - short
+    - literal
+  do:
+    - Prefer the short word.
+    - One claim per paragraph.
+  dont:
+    - No ornament.
+    - No emoji.
+    - No rhetorical questions that you then answer yourself.
+banned_words:
+  - literally
+  - unpack
+  - journey
+newsletter:
+  layout: classic
+  sections:
+    - id: opener
+      title: Note
+      required: true
+      word_limit: 40
+    - id: body
+      title: Body
+      required: true
+    - id: close
+      title: End
+      required: false

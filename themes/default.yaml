@@ -1,0 +1,54 @@
+name: default
+description: Clean, topic-agnostic newsletter theme with a readable light default and a dark counterpart.
+mood: calm, direct, unfussy
+theme_mode: light
+palettes:
+  light:
+    background: "#FFFFFF"
+    foreground: "#111111"
+    accent: "#2F6FED"
+    muted: "#667085"
+  dark:
+    background: "#111111"
+    foreground: "#F5F5F5"
+    accent: "#7EB6FF"
+    muted: "#9AA4B2"
+fallback_fonts:
+  - Georgia
+  - "Times New Roman"
+  - serif
+word_limits:
+  newsletter: 900
+  x_post: 280
+  instagram_caption: 2200
+  linkedin: 1300
+  opener: 80
+voice:
+  adjectives:
+    - clear
+    - warm
+    - specific
+  do:
+    - Lead with the thing the reader can use this week.
+    - One idea per issue.
+  dont:
+    - Do not pad with throat-clearing.
+    - Do not use engagement bait ("wait for it", "you won't believe").
+banned_words:
+  - synergy
+  - disrupt
+  - hack your
+  - guaranteed
+newsletter:
+  layout: classic
+  sections:
+    - id: opener
+      title: This week
+      required: true
+      word_limit: 80
+    - id: main
+      title: The piece
+      required: true
+    - id: close
+      title: Before you go
+      required: false

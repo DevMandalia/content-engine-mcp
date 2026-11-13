@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://content-engine.dev/schemas/issue.schema.json",
+  "title": "ContentEngineIssue",
+  "description": "Rendered multi-channel issue produced by content-engine-mcp v0.1. Copy packs only; no social publish.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "id", "seed_id", "title", "theme", "channels"],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "id": { "type": "string" },
+    "seed_id": { "type": "string" },
+    "title": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "drafted", "ready", "approved", "sent"]
+    },
+    "theme": { "type": "string" },
+    "draft": { "type": "boolean" },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "url"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^S[0-9]+$" },
+          "url": { "type": "string", "format": "uri" },
+          "title": { "type": "string" }
+        }
+      }
+    },
+    "channels": {
+      "type": "object",
+      "properties": {
+        "newsletter": { "type": "object" },
+        "x": { "type": "object" },
+        "instagram": { "type": "object" },
+        "linkedin": { "type": "object" }
+      }
+    }
+  }
+}

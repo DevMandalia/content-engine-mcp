@@ -1,0 +1,57 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.content-engine/content-engine-mcp",
+  "description": "Personal content engine for MCP agents: idea to newsletter and social drafts, locally.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/content-engine/content-engine-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "content-engine-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "CONTENT_ENGINE_ROOT",
+          "description": "Project folder (default ./content-engine)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        },
+        {
+          "name": "RESEND_API_KEY",
+          "description": "Resend API key for send_newsletter (optional)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        },
+        {
+          "name": "SMTP_HOST",
+          "description": "SMTP host for send_newsletter (optional)",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        },
+        {
+          "name": "SMTP_USER",
+          "description": "SMTP username",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": false
+        },
+        {
+          "name": "SMTP_PASS",
+          "description": "SMTP password or Gmail app password",
+          "isRequired": false,
+          "format": "string",
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}

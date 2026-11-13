@@ -1,0 +1,62 @@
+name: babaganoush
+description: Greek-taverna kitchen table. Dark olive-charcoal with olive, gold, and cream.
+mood: warm, unhurried, a little smoky, like the last table still talking
+theme_mode: dark
+palettes:
+  light:
+    background: "#F2E8D8"
+    foreground: "#12140F"
+    accent: "#A9B455"
+    muted: "#D9B77A"
+  dark:
+    background: "#12140F"
+    foreground: "#F2E8D8"
+    accent: "#A9B455"
+    muted: "#D9B77A"
+fallback_fonts:
+  - Palatino
+  - Palatino Linotype
+  - Georgia
+  - serif
+word_limits:
+  newsletter: 800
+  x_post: 280
+  instagram_caption: 1800
+  linkedin: 1100
+  opener: 70
+voice:
+  adjectives:
+    - warm
+    - practical
+    - unfussy
+    - generous
+  do:
+    - Write like you are handing someone a plate, not a manifesto.
+    - Name the ingredient, the pan, the smell.
+    - Allow a short story from the kitchen, then get to the method.
+  dont:
+    - Do not moralize anyone's Tuesday dinner.
+    - Do not write like a restaurant PR listicle.
+    - Do not invent chef-y French when Greek or plain English will do.
+banned_words:
+  - grindset
+  - hustle
+  - 10x
+  - secret sauce
+  - lifestyle brand
+newsletter:
+  layout: editorial
+  sections:
+    - id: opener
+      title: From the taverna
+      required: true
+      word_limit: 70
+    - id: plate
+      title: What we are cooking
+      required: true
+    - id: method
+      title: How
+      required: true
+    - id: table
+      title: At the table
+      required: false
