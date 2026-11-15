@@ -70,7 +70,7 @@ Feedback: `approve_draft`, `request_revision`, `kill_draft`, `list_learned_prefe
 
 Output: `render_outputs`, `send_newsletter`, `get_calendar`, `get_cadence_status`
 
-Optional prompts (clients that support them): `setup_wizard`, `develop_idea`.
+Optional prompts (clients that support them): `user-guide` (title **User guide**), `setup_wizard`, `develop_idea`.
 
 ## Phase 2
 

@@ -2,6 +2,12 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 import { ContentEngine } from "./engine.js";
 import { CHANNELS, SEED_KINDS, type Channel } from "./types.js";
+import {
+  USER_GUIDE_DESCRIPTION,
+  USER_GUIDE_NAME,
+  USER_GUIDE_TITLE,
+  userGuidePromptText
+} from "./user-guide.js";
 import { SERVER_NAME, VERSION } from "./version.js";
 
 const channelSchema = z.enum(CHANNELS);
@@ -396,6 +402,25 @@ export function createServer(ctx: ServerContext): McpServer {
     "get_cadence_status",
     { description: "Cadence reminders as data. This server cannot self-schedule." },
     wrap0(() => e().getCadenceStatus())
+  );
+
+  server.registerPrompt(
+    USER_GUIDE_NAME,
+    {
+      title: USER_GUIDE_TITLE,
+      description: USER_GUIDE_DESCRIPTION
+    },
+    () => ({
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: userGuidePromptText()
+          }
+        }
+      ]
+    })
   );
 
   server.registerPrompt(

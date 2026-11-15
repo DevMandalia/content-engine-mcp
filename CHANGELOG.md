@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- README no-terminal quick start (Claude Desktop `.mcpb` only; honest about claude.ai / ChatGPT / Cursor).
+- MCP prompt `user-guide` (title **User guide**) walks through every tool and a first issue.
+
 ## 0.1.1 — 2026-11-13
 
 Desktop bundle and npm-readiness fix. npm is still **not** published.

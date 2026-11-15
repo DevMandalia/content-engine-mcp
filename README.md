@@ -1,3 +1,5 @@
+<!-- TODO: put the Content Engine visual workflow image here, above the intro (relative path under docs/ or assets/, descriptive alt). Searched this repo: docs/ (SPEC, QUICKSTART, DEMO, SCHEDULING, RESEARCH — markdown only), assets/ (missing), README, mcpb/, git ls-files, GitHub release assets for v0.1.0 and v0.1.1 (only content-engine-mcp.mcpb). No png/svg/jpg/gif/webp or workflow/architecture diagram. Do not add the private “Content Engine — Blueprint” image without Devaang’s OK. -->
+
 <p>
   <a href="docs/QUICKSTART.md"><img alt="No-terminal quickstart" src="https://img.shields.io/badge/Quickstart-no%20terminal-2ea44f?style=for-the-badge"></a>
   <a href="docs/QUICKSTART.md#1-claude-desktop"><img alt="Install in Claude Desktop" src="https://img.shields.io/badge/Install%20in-Claude%20Desktop-D97757?style=for-the-badge"></a>
@@ -12,6 +14,11 @@ Turn Claude Desktop, Claude Code, Cursor, Codex, ChatGPT, Windsurf, or any MCP-c
 You paste a 2–5 line idea. The server stores voice, sources, drafts, and calendar state in a local folder. **Your agent** researches and writes. The server fact-checks citations, splits X threads with `twitter-text`, and renders newsletter HTML plus social copy packs.
 
 MIT. v0.1.1. The server never calls an LLM.
+
+## No-terminal quick start
+
+1. **Install (Claude Desktop only).** Download [`content-engine-mcp.mcpb`](https://github.com/DevMandalia/content-engine-mcp/releases/latest) from the latest GitHub release, then **double-click** it, or in Claude Desktop go to **Settings → Extensions** and install the file. Claude.ai, ChatGPT, and Cursor’s add-connector UI talk to **remote** MCP servers, not a local stdio process, so they cannot install this without a terminal.
+2. **Open the User guide.** In a new Claude Desktop chat, click **+** and pick the **User guide** prompt (or type `/user-guide`). The assistant walks you through setup and a first issue. Longer click-by-click notes: [docs/QUICKSTART.md](docs/QUICKSTART.md).
 
 ## 60-second quickstart
 
