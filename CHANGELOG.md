@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.1.2 — 2026-11-15
+
+npm is still **not** published.
 
 - README no-terminal quick start (Claude Desktop `.mcpb` only; honest about claude.ai / ChatGPT / Cursor).
 - MCP prompt `user-guide` (title **User guide**) walks through every tool and a first issue.

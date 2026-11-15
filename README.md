@@ -15,7 +15,7 @@ Turn Claude Desktop, Claude Code, Cursor, Codex, ChatGPT, Windsurf, or any MCP-c
 
 You paste a 2–5 line idea. The server stores voice, sources, drafts, and calendar state in a local folder. **Your agent** researches and writes. The server fact-checks citations, splits X threads with `twitter-text`, and renders newsletter HTML plus social copy packs.
 
-MIT. v0.1.1. The server never calls an LLM.
+MIT. v0.1.2. The server never calls an LLM.
 
 ## No-terminal quick start
 
@@ -36,7 +36,7 @@ Leave that process to your MCP client (stdio). Project files land in `./content-
 
 ### Claude Desktop
 
-Download [`content-engine-mcp.mcpb`](https://github.com/DevMandalia/content-engine-mcp/releases/download/v0.1.1/content-engine-mcp.mcpb) from the [v0.1.1 release](https://github.com/DevMandalia/content-engine-mcp/releases/tag/v0.1.1) and double-click it (or drag it onto Claude Desktop). The install screen has a **Project folder** setting; the default is `content-engine` in your home folder.
+Download [`content-engine-mcp.mcpb`](https://github.com/DevMandalia/content-engine-mcp/releases/latest) from the [latest release](https://github.com/DevMandalia/content-engine-mcp/releases/latest) and double-click it (or drag it onto Claude Desktop). The install screen has a **Project folder** setting; the default is `content-engine` in your home folder.
 
 Manual `claude_desktop_config.json` still works: `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
 
@@ -95,7 +95,7 @@ command = "node"
 args = ["/absolute/path/to/content-engine-mcp/dist/index.js", "--root", "./content-engine"]
 ```
 
-After `npm publish` (later): `npx -y content-engine-mcp`. Until then, clone and build, or `npx -y ./content-engine-mcp-0.1.1.tgz` from a packed tarball.
+After `npm publish` (later): `npx -y content-engine-mcp`. Until then, clone and build, or `npx -y ./content-engine-mcp-0.1.2.tgz` from a packed tarball.
 
 ## Walkthrough
 

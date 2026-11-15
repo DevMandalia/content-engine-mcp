@@ -1,6 +1,6 @@
 {
   "name": "content-engine-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Personal content engine for MCP agents: idea to newsletter and social drafts, locally.",
   "mcpName": "io.github.content-engine/content-engine-mcp",
   "type": "module",

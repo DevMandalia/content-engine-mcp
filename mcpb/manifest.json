@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "content-engine-mcp",
   "display_name": "Content Engine",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Local MCP content engine: seeds, citations, email-safe HTML, X intent links.",
   "long_description": "Turns an MCP-capable agent into a personal content engine. You write; the server structures, fact-checks, and renders a newsletter plus X, Instagram, and LinkedIn copy packs. No sampling. No social APIs.",
   "author": {

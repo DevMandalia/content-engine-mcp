@@ -26,8 +26,8 @@ This guide is for people who don't use a terminal. You click through your AI app
 
 Claude Desktop installs Content Engine as a **desktop extension**, a single `.mcpb` file. Official docs: [Getting started with local MCP servers on Claude Desktop](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop) and [Build a desktop extension with MCPB](https://claude.com/docs/connectors/building/mcpb).
 
-1. Open the [v0.1.1 release](https://github.com/DevMandalia/content-engine-mcp/releases/tag/v0.1.1) (or the [latest release](https://github.com/DevMandalia/content-engine-mcp/releases/latest)).
-2. Under **Assets**, click **[`content-engine-mcp.mcpb`](https://github.com/DevMandalia/content-engine-mcp/releases/download/v0.1.1/content-engine-mcp.mcpb)** to download it.
+1. Open the [latest release](https://github.com/DevMandalia/content-engine-mcp/releases/latest).
+2. Under **Assets**, click **[`content-engine-mcp.mcpb`](https://github.com/DevMandalia/content-engine-mcp/releases/latest/download/content-engine-mcp.mcpb)** to download it.
 3. Install it in **one** of these ways:
    - **Double-click** the downloaded file. Claude Desktop opens an install screen.
    - Or **drag** the file into the Claude Desktop window.
@@ -47,7 +47,7 @@ Claude Desktop installs Content Engine as a **desktop extension**, a single `.mc
 
 ### Troubleshooting
 
-- **The file won't install.** Update Claude Desktop to the latest version and download the file again from the [v0.1.1 release](https://github.com/DevMandalia/content-engine-mcp/releases/tag/v0.1.1).
+- **The file won't install.** Update Claude Desktop to the latest version and download the file again from the [latest release](https://github.com/DevMandalia/content-engine-mcp/releases/latest).
 - **Double-click does nothing (often on Windows).** Use the **Install Extension…** button from step 3 instead. *(Reported by users, not stated in Anthropic's docs.)*
 - **It installed, but the tools are missing.** Quit Claude Desktop completely, reopen it, and check that the extension is turned on. ([source](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop))
 - **You want to see errors.** Open the extension in the Extensions page and read its logs. ([source](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop))
