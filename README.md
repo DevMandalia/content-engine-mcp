@@ -1,4 +1,6 @@
-<!-- TODO: put the Content Engine visual workflow image here, above the intro (relative path under docs/ or assets/, descriptive alt). Searched this repo: docs/ (SPEC, QUICKSTART, DEMO, SCHEDULING, RESEARCH — markdown only), assets/ (missing), README, mcpb/, git ls-files, GitHub release assets for v0.1.0 and v0.1.1 (only content-engine-mcp.mcpb). No png/svg/jpg/gif/webp or workflow/architecture diagram. Do not add the private “Content Engine — Blueprint” image without Devaang’s OK. -->
+<p align="center">
+  <img src="docs/workflow.svg" alt="Content Engine MCP workflow: Sources, Ideas, Drafts, Review, then Channels" width="1200" />
+</p>
 
 <p>
   <a href="docs/QUICKSTART.md"><img alt="No-terminal quickstart" src="https://img.shields.io/badge/Quickstart-no%20terminal-2ea44f?style=for-the-badge"></a>

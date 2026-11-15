@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">Content Engine MCP workflow</title>
+  <desc id="desc">Sources, then Ideas, then Drafts, then Review, then Channels, mapped to attach_source, capture_seed, save_draft, fact_check_draft, and render_outputs.</desc>
+  <style type="text/css"><![CDATA[
+    .card { fill: #f3f0e8; stroke: #d4cfc3; }
+    .box { fill: #fffdf8; stroke: #d5d0c6; }
+    .kicker { fill: #6b675e; font: 500 14px ui-sans-serif, system-ui, sans-serif; }
+    .stage { fill: #1f1d1a; font: 650 16px ui-sans-serif, system-ui, sans-serif; }
+    .tool { fill: #5c5850; font: 400 14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .caption { fill: #6b675e; font: 400 14px ui-sans-serif, system-ui, sans-serif; }
+    .arrow-line { stroke: #6b675e; fill: none; }
+    .arrow-head { fill: #6b675e; }
+    .bar { fill: #6d7a62; }
+    @media (prefers-color-scheme: dark) {
+      .card { fill: #1c1b19; stroke: #3f3c36; }
+      .box { fill: #2a2926; stroke: #4a4740; }
+      .kicker { fill: #b8b2a6; }
+      .stage { fill: #f2ede4; }
+      .tool { fill: #c4beb2; }
+      .caption { fill: #b8b2a6; }
+      .arrow-line { stroke: #9a958a; }
+      .arrow-head { fill: #9a958a; }
+      .bar { fill: #8a9678; }
+    }
+  ]]></style>
+  <rect class="card" x="0.5" y="0.5" width="1199" height="359" rx="16"/>
+  <text class="kicker" x="40" y="36">Content Engine MCP</text>
+  <text class="caption" x="1160" y="36" text-anchor="end">You write. The server structures.</text>
+
+  <g transform="translate(40,68)">
+    <rect class="box" width="192" height="220" rx="12"/>
+    <rect class="bar" width="192" height="6" rx="3"/>
+    <text class="stage" x="96" y="52" text-anchor="middle">Sources</text>
+    <text class="tool" x="96" y="100" text-anchor="middle">attach_source</text>
+    <text class="tool" x="96" y="124" text-anchor="middle">list_sources</text>
+  </g>
+  <g transform="translate(272,68)">
+    <rect class="box" width="192" height="220" rx="12"/>
+    <rect class="bar" width="192" height="6" rx="3"/>
+    <text class="stage" x="96" y="52" text-anchor="middle">Ideas</text>
+    <text class="tool" x="96" y="100" text-anchor="middle">capture_seed</text>
+    <text class="tool" x="96" y="124" text-anchor="middle">build_research_brief</text>
+  </g>
+  <g transform="translate(504,68)">
+    <rect class="box" width="192" height="220" rx="12"/>
+    <rect class="bar" width="192" height="6" rx="3"/>
+    <text class="stage" x="96" y="52" text-anchor="middle">Drafts</text>
+    <text class="tool" x="96" y="100" text-anchor="middle">get_draft_kit</text>
+    <text class="tool" x="96" y="124" text-anchor="middle">save_draft</text>
+  </g>
+  <g transform="translate(736,68)">
+    <rect class="box" width="192" height="220" rx="12"/>
+    <rect class="bar" width="192" height="6" rx="3"/>
+    <text class="stage" x="96" y="52" text-anchor="middle">Review</text>
+    <text class="tool" x="96" y="100" text-anchor="middle">fact_check_draft</text>
+    <text class="tool" x="96" y="124" text-anchor="middle">approve_draft</text>
+  </g>
+  <g transform="translate(968,68)">
+    <rect class="box" width="192" height="220" rx="12"/>
+    <rect class="bar" width="192" height="6" rx="3"/>
+    <text class="stage" x="96" y="52" text-anchor="middle">Channels</text>
+    <text class="tool" x="96" y="100" text-anchor="middle">render_outputs</text>
+    <text class="tool" x="96" y="124" text-anchor="middle">send_newsletter</text>
+  </g>
+
+  <g>
+    <line class="arrow-line" x1="236" y1="178" x2="260" y2="178" stroke-width="2"/>
+    <polygon class="arrow-head" points="264,178 252,172 252,184"/>
+    <line class="arrow-line" x1="468" y1="178" x2="492" y2="178" stroke-width="2"/>
+    <polygon class="arrow-head" points="496,178 484,172 484,184"/>
+    <line class="arrow-line" x1="700" y1="178" x2="724" y2="178" stroke-width="2"/>
+    <polygon class="arrow-head" points="728,178 716,172 716,184"/>
+    <line class="arrow-line" x1="932" y1="178" x2="956" y2="178" stroke-width="2"/>
+    <polygon class="arrow-head" points="960,178 948,172 948,184"/>
+  </g>
+
+  <text class="caption" x="600" y="328" text-anchor="middle">The assistant researches and writes. The server never posts on its own.</text>
+</svg>

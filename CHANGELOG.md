@@ -4,6 +4,7 @@
 
 - README no-terminal quick start (Claude Desktop `.mcpb` only; honest about claude.ai / ChatGPT / Cursor).
 - MCP prompt `user-guide` (title **User guide**) walks through every tool and a first issue.
+- README workflow diagram (`docs/workflow.svg`): Sources → Ideas → Drafts → Review → Channels.
 
 ## 0.1.1 — 2026-11-13
 
